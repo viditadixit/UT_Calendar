@@ -27,7 +27,9 @@
 						<input type="password" class="form-control input-lg" placeHolder="Password">
 					</div>
 					<div class="form-group">
-						<input type="submit" class="btn btn-block btn-lg btn-warning" value="Login">
+						<form action="\UTCalendar">
+							<input type="submit" class="btn btn-block btn-lg btn-warning" value="Login">
+						</form>
 						<span class="pull-right"><a href="#">Register</a></span>
 						<span><a href="#">Forgot Password</a></span>
 					</div>
