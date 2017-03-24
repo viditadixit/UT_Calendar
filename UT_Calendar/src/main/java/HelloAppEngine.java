@@ -11,6 +11,8 @@ public class HelloAppEngine extends HttpServlet {
       
     response.setContentType("text/plain");
     response.getWriter().print("Hello App Engine!\r\n");
+    
+    System.out.println("Test");
 
   }
 }
