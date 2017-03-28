@@ -452,6 +452,13 @@ table.table-borderless > thead > tr > th, table.table-borderless > tbody > tr > 
             <td class=" no-events" rowspan="1"></td>
 
             <td class=" no-events" rowspan="1"></td>
+            
+            <td class=" no-events" rowspan="1"></td>
+
+            <td class=" no-events" rowspan="1"></td>
+            <td class=" no-events" rowspan="1"></td>
+
+            <td class=" no-events" rowspan="1"></td>
 
         </tr>
         <tr>
@@ -462,64 +469,77 @@ table.table-borderless > thead > tr > th, table.table-borderless > tbody > tr > 
             <td class=" no-events" rowspan="1"></td>
 
             <td class=" no-events" rowspan="1"></td>
+            
+            <td class=" no-events" rowspan="1"></td>
+
+            <td class=" no-events" rowspan="1"></td>
+            <td class=" no-events" rowspan="1"></td>
+
+            <td class=" no-events" rowspan="1"></td>
 
         </tr>
         <tr>
             <td>16:00</td>
 
-            <td class=" has-events" rowspan="4">
 
-                <div class="row-fluid practice" style="width: 99%; height: 100%;">
+            <td class=" no-events" rowspan="1"></td>
 
+            <td class=" no-events" rowspan="1"></td>
+            <td class=" no-events" rowspan="1"></td>
 
-                    <span class="title">Calculus 1</span> <span class="lecturer"><a>Mrs.
-                            Ak</a></span> <span class="location">54/125</span>
-                </div>
-            </td>
+            <td class=" no-events" rowspan="1"></td>
+            <td class=" no-events" rowspan="1"></td>
 
-            <td class=" has-events" rowspan="4">
+            <td class=" no-events" rowspan="1"></td>
+            <td class=" no-events" rowspan="1"></td>
 
-                <div class="row-fluid lecture" style="width: 99%; height: 100%;">
-
-
-                    <span class="title">Combinatorics</span> <span class="lecturer"><a>Ms.
-                            Nice</a></span> <span class="location">99/411</span>
-                </div>
-            </td>
-
-            <td class=" has-events" rowspan="4">
-
-                <div class="row-fluid practice" style="width: 99%; height: 100%;">
-
-
-                    <span class="title">Combinatorics</span> <span class="lecturer"><a>Ms.
-                            K</a></span> <span class="location">24/900</span>
-                </div>
-            </td>
-
-            <td class=" has-events" rowspan="4">
-
-                <div class="row-fluid practice" style="width: 99%; height: 100%;">
-
-
-                    <span class="title">Data Structures</span> <span class="lecturer"><a>Mr.
-                            Ben</a></span> <span class="location">54/214</span>
-                </div>
             </td>
 
         </tr>
         <tr>
             <td>16:30</td>
+            
+            <td class=" no-events" rowspan="1"></td>
 
+            <td class=" no-events" rowspan="1"></td>
+            <td class=" no-events" rowspan="1"></td>
+
+            <td class=" no-events" rowspan="1"></td>
+            <td class=" no-events" rowspan="1"></td>
+
+            <td class=" no-events" rowspan="1"></td>
+            <td class=" no-events" rowspan="1"></td>
+
+      
         </tr>
         <tr>
             <td>17:00</td>
+
+            <td class=" no-events" rowspan="1"></td>
+            
+            <td class=" no-events" rowspan="1"></td>
+
+            <td class=" no-events" rowspan="1"></td>
+            <td class=" no-events" rowspan="1"></td>
+
+            <td class=" no-events" rowspan="1"></td>
+            <td class=" no-events" rowspan="1"></td>
 
             <td class=" no-events" rowspan="1"></td>
 
         </tr>
         <tr>
             <td>17:30</td>
+
+            <td class=" no-events" rowspan="1"></td>
+            
+            <td class=" no-events" rowspan="1"></td>
+
+            <td class=" no-events" rowspan="1"></td>
+            <td class=" no-events" rowspan="1"></td>
+
+            <td class=" no-events" rowspan="1"></td>
+            <td class=" no-events" rowspan="1"></td>
 
             <td class=" no-events" rowspan="1"></td>
 
@@ -535,6 +555,11 @@ table.table-borderless > thead > tr > th, table.table-borderless > tbody > tr > 
 
             <td class=" no-events" rowspan="1"></td>
 
+
+            <td class=" no-events" rowspan="1"></td>
+
+            <td class=" no-events" rowspan="1"></td>
+            
             <td class=" no-events" rowspan="1"></td>
 
         </tr>
@@ -549,6 +574,10 @@ table.table-borderless > thead > tr > th, table.table-borderless > tbody > tr > 
 
             <td class=" no-events" rowspan="1"></td>
 
+
+            <td class=" no-events" rowspan="1"></td>
+
+            <td class=" no-events" rowspan="1"></td>
             <td class=" no-events" rowspan="1"></td>
 
         </tr>
@@ -565,6 +594,9 @@ table.table-borderless > thead > tr > th, table.table-borderless > tbody > tr > 
 
             <td class=" no-events" rowspan="1"></td>
 
+            <td class=" no-events" rowspan="1"></td>
+
+            <td class=" no-events" rowspan="1"></td>
         </tr>
         <tr>
             <td>19:30</td>
@@ -575,6 +607,10 @@ table.table-borderless > thead > tr > th, table.table-borderless > tbody > tr > 
 
             <td class=" no-events" rowspan="1"></td>
 
+            <td class=" no-events" rowspan="1"></td>
+
+            <td class=" no-events" rowspan="1"></td>
+            
             <td class=" no-events" rowspan="1"></td>
 
             <td class=" no-events" rowspan="1"></td>
