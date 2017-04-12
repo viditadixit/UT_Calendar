@@ -27,7 +27,11 @@
       <li><a href="#">Month</a></li>
     </ul>
     <ul class="nav navbar-nav navbar-right">
-      <li><a href="#"><span class="glyphicon glyphicon-log-out"></span> Logout</a></li>
+      <li>
+       <form action="login.jsp">
+        <button class="btn btn-default navbar-btn">Logout</button>
+    	</form>
+      </li>
     </ul>
   </div>
 </nav>
