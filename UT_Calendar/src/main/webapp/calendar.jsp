@@ -176,7 +176,7 @@ table.table-borderless > thead > tr > th, table.table-borderless > tbody > tr > 
 </head>
 
   <div class="col-sm-8" >
-<table class="calendar table table-bordered" align = "center"
+<table class="calendar table table-bordered" align = "center">
     <thead>
         <tr>
             <th>&nbsp;</th>

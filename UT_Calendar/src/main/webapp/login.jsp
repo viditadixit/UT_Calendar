@@ -19,7 +19,7 @@
 				<h1 class="text-center">Login</h1>
 			</div>
 			<div class="modal-body">
-				<form class="col=md-12 center-block">
+				<form class="col=md-12 center-block" action="/utcalendar">
 					<div class="form-group">
 						<input type="text" class="form-control input-lg" placeHolder="Username">
 					</div>
@@ -27,9 +27,7 @@
 						<input type="password" class="form-control input-lg" placeHolder="Password">
 					</div>
 					<div class="form-group">
-						<form action="\UTCalendar">
 							<input type="submit" class="btn btn-block btn-lg btn-warning" value="Login">
-						</form>
 						<span class="pull-right"><a href="#">Register</a></span>
 						<span><a href="#">Forgot Password</a></span>
 					</div>
