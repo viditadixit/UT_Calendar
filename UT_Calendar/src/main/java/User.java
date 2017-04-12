@@ -17,6 +17,18 @@ public class User {
 		toDoList = new ArrayList<String>();
 	}
 	
+	public String getName() {
+		return this.name;
+	}
+	
+	public String getEmail() {
+		return this.email;
+	}
+	
+	public String getPassword() {
+		return this.password;
+	}
+	
 	public void editName(String newName) {
 		this.name = newName;
 	}

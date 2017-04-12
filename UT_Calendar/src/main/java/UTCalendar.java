@@ -3,6 +3,8 @@ import static com.googlecode.objectify.ObjectifyService.ofy;
 import java.io.IOException;
 import java.util.ArrayList;
 
+import javax.servlet.RequestDispatcher;
+import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -30,9 +32,34 @@ public class UTCalendar extends HttpServlet {
 		users.add(katelyn);
 		users.add(rebecca);
 		
-		System.out.println(users);
+		String username = request.getParameter("username");
+		String password = request.getParameter("password");
+		String name = "";
 		
-		response.sendRedirect("calendar.jsp");
+		System.out.println(username);
+		System.out.println(password);
+		
+		boolean user = false;
+		
+		for (User u : users) {
+			System.out.println(u.getEmail());
+			System.out.println(u.getPassword());
+			if (u.getEmail().equals(username)) {
+				if (u.getPassword().equals(password)) {
+					name = u.getName();
+					user = true;
+					break;
+				}
+			}
+		}
+		
+		if (user) {
+			response.sendRedirect("/calendar.jsp?user=" + name);
+		} else {
+			response.sendRedirect("/login.jsp");
+		}
+		
+		//response.sendRedirect("calendar.jsp");
 		
 		/*ofy().save().entity(kirtana).now();
 		ofy().save().entity(vidita).now();

@@ -21,10 +21,10 @@
 			<div class="modal-body">
 				<form class="col=md-12 center-block" action="/utcalendar">
 					<div class="form-group">
-						<input type="text" class="form-control input-lg" placeHolder="Username">
+						<input type="text" name="username" id="username" class="form-control input-lg" placeHolder="Username">
 					</div>
 					<div class="form-group">
-						<input type="password" class="form-control input-lg" placeHolder="Password">
+						<input type="password" name="password" id="password" class="form-control input-lg" placeHolder="Password">
 					</div>
 					<div class="form-group">
 							<input type="submit" class="btn btn-block btn-lg btn-warning" value="Login">
