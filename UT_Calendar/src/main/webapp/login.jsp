@@ -13,6 +13,15 @@
 
 </head>
 <body>
+
+<nav class="navbar navbar-inverse">
+  <div class="container-fluid">
+    <div class="navbar-header">
+      <a class="navbar-brand" href="#">UTCalendar</a>
+    </div>
+  </div>
+</nav>
+
 	<div class="modal-dialog">
 		<div class="modal-content">
 			<div class="modal-header">
@@ -28,15 +37,9 @@
 					</div>
 					<div class="form-group">
 							<input type="submit" class="btn btn-block btn-lg btn-warning" value="Login">
-						<span class="pull-right"><a href="#">Register</a></span>
 						<span><a href="#">Forgot Password</a></span>
 					</div>
 				</form>
-				<div class="modal-footer">
-					<div class="col-md-12">
-						<button class="btn">Cancel</button>
-					</div>
-				</div>
 			</div>
 		</div>
 	</div>
