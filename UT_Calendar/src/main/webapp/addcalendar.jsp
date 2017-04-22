@@ -172,8 +172,11 @@ border-box
 
 
 		<div class="col-sm-11" style="padding-bottom: 5px; padding-left: 50px">
-			<button type="submit" class="btn btn-primary pull-left">Create
+			<button type="submit" class="btn btn-primary pull-left" onclick="location.href='newschedule.jsp'">Create
 				New Schedule</button>
+		</div>
+		<div class="col-sm-11" style="padding-bottom: 5px; padding-left: 50px">
+			<button type="submit" class="btn btn-primary pull-left" onclick="location.href='calendar.jsp'">Back To Calendar</button>
 		</div>
 
 	</div>
