@@ -1,12 +1,11 @@
 import java.util.ArrayList;
-import com.googlecode.objectify.annotation.Entity;
 
 public class User {
 	
-	public String name;
+	String name;
 	private String email;
 	private String password;
-	public ArrayList<String> toDoList;
+	private ArrayList<String> toDoList;
 	
 	Calendar calendar;
 	
@@ -52,9 +51,5 @@ public class User {
 	
 	public void updateCalendar(Schedule schedule) {
 		this.calendar.updateSchedule(schedule);
-	}
-	
-	public String toString() {
-		return this.name;
 	}
 }
