@@ -15,16 +15,22 @@ public class UTCalendar extends HttpServlet {
 	
 	/*static {
         ObjectifyService.register(User.class);
-        ObjectifyService.register(Schedule.class);
     }*/
 
 	public void doGet(HttpServletRequest request, HttpServletResponse response) 
 			throws IOException {
 		
 		User kirtana = new User("Kirtana Moorthy", "km@utexas.edu", "km");
-		User vidita = new User("Vidita Dixit", "vd@utexas.edu", "vd");
+		User vidita = new User("Vidita Dixit", "vd", "vd");
 		User katelyn = new User("Katelyn Ge", "kg@utexas.edu", "kg");
 		User rebecca = new User("Rebecca Jiang", "rj@utexas.edu", "rj");
+		
+		/*ofy().save().entity(kirtana).now();
+		ofy().save().entity(vidita).now();
+		ofy().save().entity(katelyn).now();
+		ofy().save().entity(rebecca).now();*/
+		
+		vidita.addItem("study");
 		
 		ArrayList<User> users = new ArrayList<User>();
 		users.add(kirtana);
@@ -36,17 +42,15 @@ public class UTCalendar extends HttpServlet {
 		String password = request.getParameter("password");
 		String name = "";
 		
-		System.out.println(username);
-		System.out.println(password);
-		
 		boolean user = false;
 		
 		for (User u : users) {
-			System.out.println(u.getEmail());
-			System.out.println(u.getPassword());
 			if (u.getEmail().equals(username)) {
 				if (u.getPassword().equals(password)) {
 					name = u.getName();
+					request.setAttribute("user", u);
+					request.setAttribute("name", u.getName());
+					request.setAttribute("toDoList", u.toDoList);
 					user = true;
 					break;
 				}
@@ -54,16 +58,16 @@ public class UTCalendar extends HttpServlet {
 		}
 		
 		if (user) {
-			response.sendRedirect("/calendar.jsp?user=" + name);
+			RequestDispatcher dispatcher = request.getRequestDispatcher("/calendar.jsp");
+			try {
+				dispatcher.forward(request, response);
+			} catch (ServletException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+			//response.sendRedirect("/calendar.jsp?user=" + name);
 		} else {
 			response.sendRedirect("/login.jsp");
 		}
-		
-		//response.sendRedirect("calendar.jsp");
-		
-		/*ofy().save().entity(kirtana).now();
-		ofy().save().entity(vidita).now();
-		ofy().save().entity(katelyn).now();
-		ofy().save().entity(rebecca).now();*/
 	}
 }
