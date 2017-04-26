@@ -1,8 +1,18 @@
+package utcalendar;
 import java.util.ArrayList;
 import java.util.Date;
+import com.googlecode.objectify.annotation.Entity;
+import com.googlecode.objectify.annotation.Id;
 
-public class Calendar {
+@Entity
+public class Calendar implements java.io.Serializable{
 	
+	@Id Long id;
+	
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	Date currentDate;
 	ArrayList<Schedule> schedules;
 	

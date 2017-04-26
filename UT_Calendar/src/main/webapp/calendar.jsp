@@ -1,5 +1,9 @@
 <!DOCTYPE html>
 <html>
+<%@ page import ="java.util.List" %>
+<%@ page import="com.googlecode.objectify.*" %>
+<%@ page import="utcalendar.User" %>
+
 <head>
 <meta charset="UTF-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -110,7 +114,18 @@ table.table-borderless>thead>tr>th, table.table-borderless>tbody>tr>td {
 }
 </style>
 </head>
-
+<%
+		ObjectifyService.register(User.class);
+		List<User> users = ObjectifyService.ofy().load().type(User.class).list(); 
+		String name = (String)request.getAttribute("name");
+		User currentUser = new User();
+		for (User u : users) {
+			if (u.getName().equals(name)) {
+				currentUser = u;
+			}
+		}
+		name = currentUser.getName();
+%>
 <body>
 	<nav class="navbar navbar-inverse">
 		<div class="container-fluid">
@@ -123,6 +138,7 @@ table.table-borderless>thead>tr>th, table.table-borderless>tbody>tr>td {
 				<li><a href="#">Month</a></li>
 			</ul>
 			<ul class="nav navbar-nav navbar-right">
+				<li><b><font color=white>Hello, ${name}!</font></b></li>
 				<li>
 					<form action="login.jsp">
 						<button class="btn btn-default navbar-btn">Logout</button>
@@ -131,7 +147,6 @@ table.table-borderless>thead>tr>th, table.table-borderless>tbody>tr>td {
 			</ul>
 		</div>
 	</nav>
-
 
 	<div class="container-fluid">
 		<div class="row">
@@ -417,14 +432,31 @@ table.table-borderless>thead>tr>th, table.table-borderless>tbody>tr>td {
 					<div class="panel-heading">
 						<h3 class="panel-title" align="center">To Do list</h3>
 					</div>
-					<div class="panel-body">
-						<div class="input-group">
-							<input type="text" class="form-control"> <span
-								class="input-group-btn">
-								<button class="btn btn-primary" type="button">Add</button>
-							</span>
-						</div>
+					<div class="text-center">
+						<%
+							/*ArrayList<String> toDoList = (ArrayList<String>) request.getAttribute("toDoList");
+							for (String item : toDoList) { 
+								pageContext.setAttribute("item", item);*/ %>
+								<p>${item}</p>
+						<% 		
+							//}
+						%>
 					</div>
+				<form class="col=md-12 center-block" action="/todoitem">
+					<%
+					    /*User u = (User)request.getAttribute("user"); 
+						/*System.out.println(request.getAttribute("user"));
+						System.out.println("test");
+						session.setAttribute("user", u);*/
+					%>
+					<input type="hidden" name="name" id="name" value="${name}" />
+						<div class="form-group">
+							<input type="text" name="add" id="add" class="input-group" placeHolder="New Item">
+						</div>
+						<div class="form-group">
+								<input type="submit" class="form-control" value="Add">
+						</div>
+				</form>
 				</div>
 			</div>
 		</div>

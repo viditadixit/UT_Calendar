@@ -19,8 +19,12 @@
 				<a class="navbar-brand" href="#">UTCalendar</a>
 			</div>
 			<ul class="nav navbar-nav navbar-right">
-				<li><a href="#"><span class="glyphicon glyphicon-log-out"></span>
-						Logout</a></li>
+				<li><b><font color=white>Hello, ${name}!</font></b></li>
+				<li>
+					<form action="login.jsp">
+						<button class="glyphicon glyphicon-log-out">Logout</button>
+					</form>
+				</li>
 			</ul>
 		</div>
 	</nav>

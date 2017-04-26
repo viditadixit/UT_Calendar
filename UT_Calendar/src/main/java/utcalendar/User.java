@@ -1,20 +1,38 @@
+package utcalendar;
 import java.util.ArrayList;
-import com.googlecode.objectify.annotation.Entity;
 
+import com.googlecode.objectify.annotation.Entity;
+import com.googlecode.objectify.annotation.Id;
+
+@Entity
 public class User {
 	
+	@Id Long id;
+	
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	public String name;
 	private String email;
 	private String password;
 	public ArrayList<String> toDoList;
 	
-	Calendar calendar;
+	//Calendar calendar;
+	
+	public User() {
+		this.name = "";
+		this.email = "";
+		this.password = "";
+		//calendar = new Calendar();
+		toDoList = new ArrayList<String>();
+	}
 	
 	public User(String name, String email, String password) {
 		this.name = name;
 		this.email = email;
 		this.password = password;
-		calendar = new Calendar();
+		//calendar = new Calendar();
 		toDoList = new ArrayList<String>();
 	}
 	
@@ -51,7 +69,7 @@ public class User {
 	}
 	
 	public void updateCalendar(Schedule schedule) {
-		this.calendar.updateSchedule(schedule);
+		//this.calendar.updateSchedule(schedule);
 	}
 	
 	public String toString() {

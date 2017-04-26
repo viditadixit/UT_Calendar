@@ -1,6 +1,13 @@
+package utcalendar;
 import java.util.ArrayList;
 
+import com.googlecode.objectify.annotation.Entity;
+import com.googlecode.objectify.annotation.Id;
+
+@Entity
 public class Schedule {
+	
+	@Id Long id;
 
 	String title;
 	boolean access; //public = true, private = false

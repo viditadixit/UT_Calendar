@@ -1,8 +1,14 @@
+package utcalendar;
 import java.util.ArrayList;
 import java.util.Date;
 
+import com.googlecode.objectify.annotation.Entity;
+import com.googlecode.objectify.annotation.Id;
+
+@Entity
 public class Event {
 
+	@Id Long id;
 	String title;
 	String location;
 	Date startDate, endDate;

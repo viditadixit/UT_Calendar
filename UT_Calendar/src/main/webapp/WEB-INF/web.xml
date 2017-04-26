@@ -12,6 +12,14 @@
     <servlet-name>UTCalendar</servlet-name>
     <url-pattern>/utcalendar</url-pattern>
   </servlet-mapping>
+    <servlet>
+    <servlet-name>ToDoItem</servlet-name>
+    <servlet-class>utcalendar.ToDoItem</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>ToDoItem</servlet-name>
+    <url-pattern>/todoitem</url-pattern>
+  </servlet-mapping>
   <welcome-file-list>
     <welcome-file>login.jsp</welcome-file>
   </welcome-file-list>
