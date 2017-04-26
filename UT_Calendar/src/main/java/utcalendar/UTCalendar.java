@@ -21,22 +21,19 @@ public class UTCalendar extends HttpServlet {
     }
 
 	public void doGet(HttpServletRequest request, HttpServletResponse response) 
-			throws IOException, ServletException{
+			throws IOException {
 		
 		String username = request.getParameter("username");
 		String password = request.getParameter("password");
 		String name = "";
 		
 		List<User> users = ObjectifyService.ofy().load().type(User.class).list();
-		
-		System.out.println(username);
-		System.out.println(password);
-		System.out.println("test");
-		System.out.println(users);
-		
+
 		boolean user = false;
 		
 		for (User u : users) {
+			System.out.println(u.getEmail());
+			System.out.println(u.getPassword());
 			if (u.getEmail().equals(username)) {
 				if (u.getPassword().equals(password)) {
 					request.setAttribute("name", u.getName());
@@ -48,16 +45,16 @@ public class UTCalendar extends HttpServlet {
 		}
 		
 		if (user) {
-			RequestDispatcher dispatcher = request.getRequestDispatcher("/calendar.jsp");
-			try {
-				dispatcher.forward(request, response);
-			} catch (ServletException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
-			//response.sendRedirect("/calendar.jsp?user=" + name);
+			response.sendRedirect("/calendar.jsp?user=" + name);
 		} else {
 			response.sendRedirect("/login.jsp");
 		}
+		
+		//response.sendRedirect("calendar.jsp");
+		
+		/*ofy().save().entity(kirtana).now();
+		ofy().save().entity(vidita).now();
+		ofy().save().entity(katelyn).now();
+		ofy().save().entity(rebecca).now();*/
 	}
 }
