@@ -1,62 +1,66 @@
 package utcalendar;
-import java.util.ArrayList;
 
+import java.util.ArrayList;
+import java.lang.String;
+
+import com.googlecode.objectify.Key;
 import com.googlecode.objectify.annotation.Entity;
 import com.googlecode.objectify.annotation.Id;
+import com.googlecode.objectify.annotation.Parent;
+
 
 @Entity
 public class Schedule {
-	
-	@Id Long id;
 
+	@Parent Key<Calendar> CalendarDatabase;
+	@Id Long id;
 	String title;
 	boolean access; //public = true, private = false
-	private ArrayList<User> subscriberList;
-	private ArrayList<User> studentList;
-	ArrayList<Event> events;
+	private ArrayList<String> studentList;
+	public ArrayList<Long> events;
 	
-	public Schedule(String title, ArrayList<User> students, boolean access, ArrayList<Event> events) {
+	public Schedule(){
+		this.studentList=new ArrayList<String>();
+		this.events= new ArrayList<Long>();
+	}
+	
+	public Schedule(String title, ArrayList<String> students, boolean access, ArrayList<Long> events) {
 		this.title = title;
-		if (access) {
-			this.studentList = new ArrayList<User>();
-		} else {
-			this.studentList = students;
-		}
+		this.studentList=new ArrayList<String>();
 		this.events = events;
-		this.subscriberList = new ArrayList<User>();
 	}
 	
 	public String getTitle() {
 		return this.title;
 	}
 	
-	public void addStudent(User user) {
+	public void setTitle(String title){
+		this.title= title;
+	}
+	
+	public void setAccess(String access){
+		if(access.equals("public")){
+			this.access=true;
+		}
+		else if(access.equals("private")){
+			this.access=false;
+		}
+	}
+	
+	public void addStudent(String user) {
 		this.studentList.add(user);
 	}
 	
-	public void deleteStudent(User user) {
+	public void deleteStudent(String user) {
 		this.studentList.remove(user);
 	}
 	
-	public void subscribe(User user) {
-		this.subscriberList.add(user);
-	}
-	
-	public void unsubscribe(User user) {
-		this.subscriberList.remove(user);
-	}
-	
-	public void addEvent(Event event) {
+	public void addEvent(Long event) {
 		this.events.add(event);
 	}
 	
-	public void deleteEvent(Event event) {
+	public void deleteEvent(Long event) {
 		this.events.remove(event);
 	}
 	
-	public void updateStudents() {
-		for (int i = 0; i < subscriberList.size(); i++) {
-			subscriberList.get(i).updateCalendar(this);
-		}
-	}
 }
