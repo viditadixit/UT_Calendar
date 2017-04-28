@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html>
 <%@ page import ="java.util.List" %>
+<%@ page import ="java.util.ArrayList" %>
 <%@ page import="com.googlecode.objectify.*" %>
 <%@ page import="utcalendar.User" %>
 
@@ -117,14 +118,13 @@ table.table-borderless>thead>tr>th, table.table-borderless>tbody>tr>td {
 <%
 		ObjectifyService.register(User.class);
 		List<User> users = ObjectifyService.ofy().load().type(User.class).list(); 
-		String name = (String)request.getAttribute("name");
+		String email = request.getParameter("email");
 		User currentUser = new User();
 		for (User u : users) {
-			if (u.getName().equals(name)) {
+			if (u.getEmail().equals(email)) {
 				currentUser = u;
 			}
 		}
-		name = currentUser.getName();
 %>
 <body>
 	<nav class="navbar navbar-inverse">
@@ -158,9 +158,22 @@ table.table-borderless>thead>tr>th, table.table-borderless>tbody>tr>td {
 					<div class="panel-body">
 					</div>
 					<div align="center" style="margin-bottom: 20px;">
-						<button type="button" class="btn btn-primary"
-							onclick="location.href='addcalendar.jsp'">Add
-							Schedule</button>
+					<div class="text-center">
+						<%
+							ArrayList<String> schedules = (ArrayList<String>) request.getAttribute("schedules");
+							for (String s : schedules) { 
+								pageContext.setAttribute("schedule", s); %>
+								<p>${schedule}</p>
+						<% 		
+							}
+						%>
+					</div>
+						<form action="addcalendar.jsp">
+						<input type="hidden" name="email" id="email" value="${email}"/>
+	  						<button type="button" class="btn btn-primary"
+								onclick="location.href='addcalendar.jsp?email=${email}name=${name}'">Add
+								Schedule</button>
+						</form>
 					</div>
 				</div>
 			</div>
@@ -434,28 +447,22 @@ table.table-borderless>thead>tr>th, table.table-borderless>tbody>tr>td {
 					</div>
 					<div class="text-center">
 						<%
-							/*ArrayList<String> toDoList = (ArrayList<String>) request.getAttribute("toDoList");
+							ArrayList<String> toDoList = (ArrayList<String>) request.getAttribute("toDoList");
 							for (String item : toDoList) { 
-								pageContext.setAttribute("item", item);*/ %>
+								pageContext.setAttribute("item", item); %>
 								<p>${item}</p>
 						<% 		
-							//}
+							}
 						%>
 					</div>
 				<form class="col=md-12 center-block" action="/todoitem">
-					<%
-					    /*User u = (User)request.getAttribute("user"); 
-						/*System.out.println(request.getAttribute("user"));
-						System.out.println("test");
-						session.setAttribute("user", u);*/
-					%>
-					<input type="hidden" name="name" id="name" value="${name}" />
-						<div class="form-group">
-							<input type="text" name="add" id="add" class="input-group" placeHolder="New Item">
-						</div>
-						<div class="form-group">
-								<input type="submit" class="form-control" value="Add">
-						</div>
+					<input type="hidden" name="email" id="email" value="${email}" />
+					<div class="form-group">
+						<input type="text" name="add" id="add" class="input-group" placeHolder="New Item">
+					</div>
+					<div class="form-group">
+						<input type="submit" class="form-control" value="Add">
+					</div>
 				</form>
 				</div>
 			</div>

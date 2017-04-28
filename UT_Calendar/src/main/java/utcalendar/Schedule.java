@@ -16,6 +16,7 @@ public class Schedule {
 	@Id Long id;
 	String title;
 	boolean access; //public = true, private = false
+	Long authorId;
 	private ArrayList<String> studentList;
 	public ArrayList<Long> events;
 	
@@ -46,6 +47,9 @@ public class Schedule {
 		this.id=id;
 	}
 	
+	public void setAuthor(Long id){
+		this.authorId=id;
+	}
 	public void setAccess(String access){
 		if(access.equals("public")){
 			this.access=true;
