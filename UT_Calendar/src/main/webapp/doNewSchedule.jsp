@@ -81,7 +81,7 @@
 	for(int i=3; i<newScheduleData.size();i=i+4){ //set events
 		Event newEvent = new Event(newScheduleData.get(i), newScheduleData.get(i+1), newScheduleData.get(i+2), newScheduleData.get(i+3));
 		ObjectifyService.ofy().save().entity(newEvent).now();
-		newSchedule.addEvent(newEvent.getId()); //currently not working
+		newSchedule.addEvent(newEvent.getId());
 	}
     ObjectifyService.ofy().save().entity(newSchedule).now(); //create new schedule in objectify
  %>

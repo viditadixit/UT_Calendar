@@ -38,6 +38,14 @@ public class Schedule {
 		this.title= title;
 	}
 	
+	public Long getId(){
+		return this.id;
+	}
+	
+	public void setId(Long id){
+		this.id=id;
+	}
+	
 	public void setAccess(String access){
 		if(access.equals("public")){
 			this.access=true;
