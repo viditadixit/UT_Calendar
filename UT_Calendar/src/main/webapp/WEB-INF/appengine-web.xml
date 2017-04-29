@@ -7,6 +7,6 @@
     <version>1</version>
 
   <threadsafe>true</threadsafe>
-  <sessions-enabled>false</sessions-enabled>
+  <sessions-enabled>true</sessions-enabled>
 
 </appengine-web-app>

@@ -52,6 +52,8 @@ public class UTCalendar extends HttpServlet {
 			}
 			//response.sendRedirect("/calendar.jsp?user=" + name);
 		} else {
+			String message = "Username/Password is invalid.";
+			request.getSession().setAttribute("message", message);
 			response.sendRedirect("/login.jsp");
 		}
 	}
