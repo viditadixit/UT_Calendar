@@ -24,15 +24,15 @@ public class ToDoItem extends HttpServlet {
 	public void doGet(HttpServletRequest request, HttpServletResponse response) 
 			throws IOException {
 		
-		String item = (String) request.getParameter("add");
-		String email = (String) request.getParameter("email");
-		//String name = (String) request.getAttribute("name");
-		
+		String item = (String) request.getParameter("item");
+		Long id = Long.parseLong(request.getParameter("id"));
+
 		List<User> users = ObjectifyService.ofy().load().type(User.class).list();
 		User currentUser = new User();
 		for (User u : users) {
-			if (u.getEmail().equals(email)) {
+			if (u.getId().equals(id)) {
 				currentUser = new User(u.getName(), u.getEmail(), u.getPassword());
+				currentUser.setId(id);
 				u.addItem(item);
 				currentUser.toDoList = u.toDoList;
 				currentUser.schedules = u.schedules;
@@ -42,10 +42,7 @@ public class ToDoItem extends HttpServlet {
 		}
 
 		ofy().save().entity(currentUser).now();
-		request.setAttribute("email", currentUser.getEmail());
-		request.setAttribute("name", currentUser.getName());
-		request.setAttribute("toDoList", currentUser.toDoList);
-		request.setAttribute("schedules", currentUser.schedules);
+		request.setAttribute("id", currentUser.getId());
 		
 		if (currentUser != null) {
 			RequestDispatcher dispatcher = request.getRequestDispatcher("/calendar.jsp");

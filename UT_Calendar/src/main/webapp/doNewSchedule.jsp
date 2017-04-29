@@ -87,6 +87,7 @@
  %>
 </table>
 <%
+	
 	response.sendRedirect("addcalendar.jsp");
 %>
 

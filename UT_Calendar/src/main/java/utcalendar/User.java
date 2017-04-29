@@ -18,13 +18,10 @@ public class User {
 	public ArrayList<String> toDoList;
 	public ArrayList<String> schedules;
 	
-	//Calendar calendar;
-	
 	public User() {
 		this.name = "";
 		this.email = "";
 		this.password = "";
-		//calendar = new Calendar();
 		toDoList = new ArrayList<String>();
 		schedules = new ArrayList<String>();
 	}
@@ -33,7 +30,6 @@ public class User {
 		this.name = name;
 		this.email = email;
 		this.password = password;
-		//calendar = new Calendar();
 		toDoList = new ArrayList<String>();
 		schedules = new ArrayList<String>();
 	}
@@ -81,10 +77,6 @@ public class User {
 	public void addSchedule(String schedule) {
 		schedules.add(schedule);
 	}
-	
-	/*public void updateCalendar(Schedule schedule) {
-		this.calendar.updateSchedule(schedule);
-	}*/
 	
 	public String toString() {
 		return this.name;

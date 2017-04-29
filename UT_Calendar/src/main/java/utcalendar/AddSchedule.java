@@ -22,27 +22,25 @@ public class AddSchedule extends HttpServlet {
 	public void doGet(HttpServletRequest request, HttpServletResponse response) 
 			throws IOException {
 		
-		String schedules = request.getParameter("schedules");
-		String email = request.getParameter("email");
-		
+		String schedule = (String) request.getParameter("schedules");
+		Long id = Long.parseLong(request.getParameter("id"));
+
 		List<User> users = ObjectifyService.ofy().load().type(User.class).list();
 		User currentUser = new User();
 		for (User u : users) {
-			if (u.getEmail().equals(email)) {
+			if (u.getId().equals(id)) {
 				currentUser = new User(u.getName(), u.getEmail(), u.getPassword());
-				u.addSchedule(schedules);
-				currentUser.schedules = u.schedules;
+				currentUser.setId(id);
+				u.addSchedule(schedule);
 				currentUser.toDoList = u.toDoList;
+				currentUser.schedules = u.schedules;
 				ofy().delete().entity(u).now();
 				break;
 			}
 		}
-		
+
 		ofy().save().entity(currentUser).now();
-		request.setAttribute("email", currentUser.getEmail());
-		request.setAttribute("name", currentUser.getName());
-		request.setAttribute("toDoList", currentUser.toDoList);
-		request.setAttribute("schedules", currentUser.schedules);
+		request.setAttribute("id", currentUser.getId());
 		
 		if (currentUser != null) {
 			RequestDispatcher dispatcher = request.getRequestDispatcher("/calendar.jsp");

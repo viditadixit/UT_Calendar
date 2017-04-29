@@ -66,7 +66,14 @@ border-box
 	src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
 
 </head>
-
+<%
+	List<User> users = ObjectifyService.ofy().load().type(User.class).list();
+	Long id = Long.parseLong(request.getParameter("id"));
+	User u = ObjectifyService.ofy().load().type(User.class).filter("id", id).first().get();
+	String idString = Long.toString(id);
+	pageContext.setAttribute("name", u.getName());
+	pageContext.setAttribute("idString", idString);
+%>
 <body>
 
 	<nav class="navbar navbar-inverse">
@@ -75,12 +82,6 @@ border-box
 				<a class="navbar-brand" href="#">UTCalendar</a>
 			</div>
 			<ul class="nav navbar-nav">
-				<%
-					String email = (String) request.getParameter("email");
-					pageContext.setAttribute("email", email);
-					String name = request.getParameter("name");
-					pageContext.setAttribute("name", name);
-				%>
 				<li><b><font color=white>Hello, ${name}!</font></b></li>
 			</ul>
 			<ul class="nav navbar-nav navbar-right">
@@ -191,14 +192,20 @@ border-box
 			}
 		</script>
 
-		<div class="col-sm-11" style="padding-bottom: 5px; padding-left: 50px">
-			<button type="submit" class="btn btn-primary pull-left" onclick="location.href='newschedule.jsp'">Create
-				New Schedule</button>
-		</div>
+		<form class="col=md-12 center-block" action="newschedule.jsp">
+  			<input type="hidden" name="id" id="id" value="<%=idString%>" />
+			<div class="col-sm-11" style="padding-bottom: 5px; padding-left: 50px">
+			<div class="form-group">
+				<input type="submit" class="btn btn-primary pull-left" value="Create New Schedule">
+			</div>
+			</div>
+		</form>
+		
+
 		
 		<form class="col=md-12 center-block" action="/addschedule">
   			<input type="hidden" name="schedules" id="schedules" value="wece" />
-  			<input type="hidden" name="email" id="email" value="<%=email%>" />
+  			<input type="hidden" name="id" id="id" value="<%=idString%>" />
 			<div class="col-sm-11" style="padding-bottom: 5px; padding-left: 50px">
 			<div class="form-group">
 				<input type="submit" class="btn btn-primary pull-left" value="Back To Calendar">

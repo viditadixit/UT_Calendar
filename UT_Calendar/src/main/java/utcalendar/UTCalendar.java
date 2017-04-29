@@ -17,6 +17,8 @@ import com.googlecode.objectify.ObjectifyService;
 public class UTCalendar extends HttpServlet {
 	static {
         ObjectifyService.register(User.class);
+        ObjectifyService.register(Schedule.class);
+        ObjectifyService.register(Event.class);
     }
 
 	public void doGet(HttpServletRequest request, HttpServletResponse response) 
@@ -31,14 +33,9 @@ public class UTCalendar extends HttpServlet {
 		boolean user = false;
 		
 		for (User u : users) {
-			System.out.println(u.getEmail());
-			System.out.println(u.getPassword());
 			if (u.getEmail().equals(username)) {
 				if (u.getPassword().equals(password)) {
-					request.setAttribute("email", u.getEmail());
-					request.setAttribute("name", u.getName());
-					request.setAttribute("toDoList", u.toDoList);
-					request.setAttribute("schedules", u.schedules);
+					request.setAttribute("id", u.getId());
 					user = true;
 					break;
 				}
