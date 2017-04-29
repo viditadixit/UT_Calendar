@@ -1,41 +1,39 @@
 package utcalendar;
-import java.util.ArrayList;
+
 import java.util.Date;
 
+import com.googlecode.objectify.Key;
 import com.googlecode.objectify.annotation.Entity;
 import com.googlecode.objectify.annotation.Id;
+import com.googlecode.objectify.annotation.Parent;
 
 @Entity
 public class Event {
 
 	@Id Long id;
 	String title;
-	String location;
-	Date startDate, endDate;
+	String date, startDate, endDate;
 	
-	public Event(String title, String location, Date start, Date end) {
+	public Event(){
+	}
+	
+	public Event(String title, String date, String start, String end) {
 		this.title = title;
-		this.location = location;
+		this.date = date;
 		this.startDate = start;
 		this.endDate = end;
 	}
 	
-	/*public void editLocation(Schedule s, String newLoc) {
-		this.location = newLoc;
-		updateSchedule(s);
+	public String getTitle(){
+		return this.title;
 	}
 	
-	public void editStartDate(Schedule s, Date newStart) {
-		this.startDate = newStart;
-		updateSchedule(s);
+	public Long getId(){
+		return this.id;
 	}
 	
-	public void editEndDate(Schedule s, Date newEnd) {
-		this.endDate = newEnd;
-		updateSchedule(s);
-	}*/
-	
-	/*public void updateSchedule(Schedule s) {
-		s.updateStudents();
-	}*/
+	public void setId(Long id){
+		this.id=id;
+	}
+
 }

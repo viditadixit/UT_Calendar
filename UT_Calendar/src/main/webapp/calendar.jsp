@@ -158,6 +158,7 @@ table.table-borderless>thead>tr>th, table.table-borderless>tbody>tr>td {
 						%>
 					</div>
 						<form action="addcalendar.jsp">
+						<input type="hidden" name="email" id="email" value="${email}"/>
 	  						<button type="button" class="btn btn-primary"
 								onclick="location.href='addcalendar.jsp?email=${email}&name=${name}&schedules=${schedules}&toDoList=${toDoList}'">Add
 								Schedule</button>

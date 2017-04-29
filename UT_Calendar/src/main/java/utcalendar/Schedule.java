@@ -1,37 +1,58 @@
 package utcalendar;
-import java.util.ArrayList;
 
+import java.util.ArrayList;
+import java.lang.String;
+
+import com.googlecode.objectify.Key;
 import com.googlecode.objectify.annotation.Entity;
 import com.googlecode.objectify.annotation.Id;
+import com.googlecode.objectify.annotation.Parent;
+
 
 @Entity
 public class Schedule {
-	
-	@Id Long id;
 
+	@Parent Key<Calendar> CalendarDatabase;
+	@Id Long id;
 	String title;
 	boolean access; //public = true, private = false
-	private ArrayList<String> subscriberList;
+	Long authorId;
 	private ArrayList<String> studentList;
-	ArrayList<String> events;
+	public ArrayList<Long> events;
 	
-	public Schedule(String title) {
-		this.title = title;
+	public Schedule(){
+		this.studentList=new ArrayList<String>();
+		this.events= new ArrayList<Long>();
 	}
 	
-	public Schedule(String title, ArrayList<String> students, boolean access, ArrayList<String> events) {
+	public Schedule(String title, ArrayList<String> students, boolean access, ArrayList<Long> events) {
 		this.title = title;
-		if (access) {
-			this.studentList = new ArrayList<String>();
-		} else {
-			this.studentList = students;
-		}
+		this.studentList=new ArrayList<String>();
 		this.events = events;
-		this.subscriberList = new ArrayList<String>();
 	}
 	
 	public String getTitle() {
 		return this.title;
+	}
+	
+	public void setTitle(String title){
+		this.title= title;
+	}
+	
+	public Long getAuthor() {
+		return this.authorId;
+	}
+	
+	public void setAuthor(Long id){
+		this.authorId=id;
+	}
+	public void setAccess(String access){
+		if(access.equals("public")){
+			this.access=true;
+		}
+		else if(access.equals("private")){
+			this.access=false;
+		}
 	}
 	
 	public void addStudent(String user) {
@@ -42,25 +63,11 @@ public class Schedule {
 		this.studentList.remove(user);
 	}
 	
-	public void subscribe(String user) {
-		this.subscriberList.add(user);
-	}
-	
-	public void unsubscribe(String user) {
-		this.subscriberList.remove(user);
-	}
-	
-	public void addEvent(String event) {
+	public void addEvent(Long event) {
 		this.events.add(event);
 	}
 	
-	public void deleteEvent(String event) {
+	public void deleteEvent(Long event) {
 		this.events.remove(event);
 	}
-	
-	/*public void updateStudents() {
-		for (int i = 0; i < subscriberList.size(); i++) {
-			subscriberList.get(i).updateCalendar(this);
-		}
-	}*/
 }
