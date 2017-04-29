@@ -13,6 +13,7 @@
 <%@ page import="java.lang.Integer" %>
 <%@ page import="java.lang.String" %>
 <%@ page import="java.util.Arrays" %>
+<%@ page import="java.util.List" %>
 
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
@@ -24,7 +25,12 @@
 <body>
 
 <table>
-<%  //need to parse parameters so events are together in table
+<%  
+	List<User> users = ObjectifyService.ofy().load().type(User.class).list();
+	Long id = Long.parseLong(request.getParameter("id"));
+	User u = ObjectifyService.ofy().load().type(User.class).filter("id", id).first().get();
+	
+	//need to parse parameters so events are together in table
 	//scheduleName, access, timeto#, timefrom#, validemail, date#, name#,
 	Enumeration parameters = request.getParameterNames();
 	ArrayList<String> ScheduleList = new ArrayList<String>(100);
@@ -87,8 +93,14 @@
  %>
 </table>
 <%
-	
-	response.sendRedirect("addcalendar.jsp");
+	request.setAttribute("id", u.getId());
+	RequestDispatcher dispatcher = request.getRequestDispatcher("/addcalendar.jsp");
+	try {
+		dispatcher.forward(request, response);
+	} catch (ServletException e) {
+		// TODO Auto-generated catch block
+		e.printStackTrace();
+	}
 %>
 
 </body>

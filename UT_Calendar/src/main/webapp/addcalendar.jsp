@@ -90,10 +90,18 @@ border-box
 			</ul>
 		</div>
 	</nav>
+	
+	<%
+	//Table consists of Schedules from datastore
+	List<Schedule> schedules = ObjectifyService.ofy()
+		.load()
+		.type(Schedule.class)
+		.list();
+	%>
 
 	<div class="container">
 		<h1>Add Schedules</h1>
-		<p>Select the schedule you want to add from the dropdown menu</p>
+		<p>Search for schedule to add</p>
 		<input type="text" id="myInput" onkeyup="myFunction()"
 			placeholder="Search for schedules.." title="Type in a name">
 
@@ -103,6 +111,22 @@ border-box
 				<th style="width: 30%;">Author</th>
 				<th style="width: 10%;"></th>
 			</tr>
+			<%
+			for(int i=0; i<schedules.size();i++){
+				pageContext.setAttribute("title",schedules.get(i).getTitle());
+				String name=u.getName();
+				pageContext.setAttribute("author", name);
+				out.write(schedules.get(i).getTitle());
+				%>
+				<tr>
+				<td>${title}</td> 
+				<td>${author}</td>
+				<td><a href="javascript:void(0)" onclick="addSchedule(1,'Course Schedules')">Add</a> </td>
+			</tr>
+			
+			<%
+			}
+			%>
 			<tr>
 				<td>Course Schedules</td>
 				<td>Katelyn Ge</td>
@@ -143,10 +167,6 @@ border-box
 				<td>Irfan Hasan</td>
 				<td><a href="javascript:void(0)" onclick="addSchedule(1,'Is There A Quiz Today')">Add</a> </td>
 			</tr>
-			<tr>
-			
-			</tr>
-
 		</table>
 
 		<div id="mySchedule">

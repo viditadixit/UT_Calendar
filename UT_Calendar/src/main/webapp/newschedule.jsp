@@ -1,3 +1,9 @@
+<%@ page import ="java.util.List" %>
+<%@ page import ="java.util.ArrayList" %>
+<%@ page import="com.googlecode.objectify.*" %>
+<%@ page import="utcalendar.User" %>
+<%@ page import="utcalendar.Schedule" %>
+<%@ page import ="java.util.List" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -11,7 +17,14 @@
 <link rel="stylesheet" type="text/css"
 	href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css">
 </head>
-
+<%
+	List<User> users = ObjectifyService.ofy().load().type(User.class).list();
+	Long id = Long.parseLong(request.getParameter("id"));
+	User u = ObjectifyService.ofy().load().type(User.class).filter("id", id).first().get();
+	String idString = Long.toString(id);
+	pageContext.setAttribute("name", u.getName());
+	pageContext.setAttribute("idString", idString);
+%>
 <body>
 	<nav class="navbar navbar-inverse">
 		<div class="container-fluid">
@@ -28,7 +41,8 @@
 			</ul>
 		</div>
 	</nav>
-	<form name="form1" id="form1" action="doNewSchedule.jsp" method="post">
+	<form name="form1" id="form1" action="doNewSchedule.jsp">
+	<input type="hidden" name="id" id="id" value="<%=idString%>" />
 	<div class="container">
 		<h1>New Schedule</h1>
 			<div class="form-group">
