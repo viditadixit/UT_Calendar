@@ -25,34 +25,27 @@ public class ToDoItem extends HttpServlet {
 			throws IOException {
 		
 		String item = (String) request.getParameter("add");
-		String name = (String) request.getParameter("name");
-		
-		/*String myObjectId = request.getParameter("user");
-		User user = (User)request.getSession().getAttribute(myObjectId);
-		request.getSession().removeAttribute(myObjectId);*/
-		
-		//String userID = request.getParameter("user");
-		//HttpSession session = request.getSession();
-		//User user = (User)request.getAttribute("user");
-		//request.getSession().removeAttribute(userID);
-		
-		//System.out.println(item);
-		//System.out.println(user);
+		String email = (String) request.getParameter("email");
+		//String name = (String) request.getAttribute("name");
 		
 		List<User> users = ObjectifyService.ofy().load().type(User.class).list();
 		User currentUser = new User();
 		for (User u : users) {
-			if (u.getName().equals(name)) {
-				currentUser = u;
+			if (u.getEmail().equals(email)) {
+				currentUser = new User(u.getName(), u.getEmail(), u.getPassword());
+				u.addItem(item);
+				currentUser.toDoList = u.toDoList;
+				currentUser.schedules = u.schedules;
 				ofy().delete().entity(u).now();
 				break;
 			}
 		}
-	
-		currentUser.addItem(item);
+
 		ofy().save().entity(currentUser).now();
-		request.setAttribute("name", name);
+		request.setAttribute("email", currentUser.getEmail());
+		request.setAttribute("name", currentUser.getName());
 		request.setAttribute("toDoList", currentUser.toDoList);
+		request.setAttribute("schedules", currentUser.schedules);
 		
 		if (currentUser != null) {
 			RequestDispatcher dispatcher = request.getRequestDispatcher("/calendar.jsp");
@@ -66,27 +59,5 @@ public class ToDoItem extends HttpServlet {
 		} else {
 			response.sendRedirect("/login.jsp");
 		}
-		
-		/*if (user != null) {
-			System.out.println(item);
-			//System.out.println(user.getName());
-			user.addItem(item);
-			//String id = UUID.randomUUID().toString();
-			//request.getSession().setAttribute(id, user);
-			request.setAttribute("name", user.getName());
-			request.setAttribute("user", user);
-			//request.setAttribute("user", u);
-			request.setAttribute("toDoList", user.toDoList);
-			
-			RequestDispatcher dispatcher = request.getRequestDispatcher("/calendar.jsp");
-			try {
-				dispatcher.forward(request, response);
-			} catch (ServletException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}	
-		} else {
-			System.out.println("ERROR");
-		}*/
 	}
 }

@@ -1,6 +1,13 @@
 <!DOCTYPE html>
 <html>
 
+<%@ page import ="java.util.List" %>
+<%@ page import ="java.util.ArrayList" %>
+<%@ page import="com.googlecode.objectify.*" %>
+<%@ page import="utcalendar.User" %>
+<%@ page import="utcalendar.Schedule" %>
+<%@ page import ="java.util.List" %>
+
 <head>
 <meta charset="UTF-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -67,6 +74,15 @@ border-box
 			<div class="navbar-header">
 				<a class="navbar-brand" href="#">UTCalendar</a>
 			</div>
+			<ul class="nav navbar-nav">
+				<%
+					String email = (String) request.getParameter("email");
+					pageContext.setAttribute("email", email);
+					String name = request.getParameter("name");
+					pageContext.setAttribute("name", name);
+				%>
+				<li><b><font color=white>Hello, ${name}!</font></b></li>
+			</ul>
 			<ul class="nav navbar-nav navbar-right">
 				<li><a href="#"><span class="glyphicon glyphicon-log-out"></span>
 						Logout</a></li>
@@ -126,6 +142,10 @@ border-box
 				<td>Irfan Hasan</td>
 				<td><a href="javascript:void(0)" onclick="addSchedule(1,'Is There A Quiz Today')">Add</a> </td>
 			</tr>
+			<tr>
+			
+			</tr>
+
 		</table>
 
 		<div id="mySchedule">
@@ -160,6 +180,7 @@ border-box
 			function addSchedule(scheduleID, scheduleName){
 				content=$("#mySchedule").html()+"<br>"+scheduleName;
 				$("#mySchedule").html(content);
+				
 				//send request to server, add ID
 				/*$.ajax({
 					  url: "doAddSchedule.jsp?id="+scheduleID,
@@ -170,14 +191,20 @@ border-box
 			}
 		</script>
 
-
 		<div class="col-sm-11" style="padding-bottom: 5px; padding-left: 50px">
 			<button type="submit" class="btn btn-primary pull-left" onclick="location.href='newschedule.jsp'">Create
 				New Schedule</button>
 		</div>
-		<div class="col-sm-11" style="padding-bottom: 5px; padding-left: 50px">
-			<button type="submit" class="btn btn-primary pull-left" onclick="location.href='calendar.jsp'">Back To Calendar</button>
-		</div>
+		
+		<form class="col=md-12 center-block" action="/addschedule">
+  			<input type="hidden" name="schedules" id="schedules" value="wece" />
+  			<input type="hidden" name="email" id="email" value="<%=email%>" />
+			<div class="col-sm-11" style="padding-bottom: 5px; padding-left: 50px">
+			<div class="form-group">
+				<input type="submit" class="btn btn-primary pull-left" value="Back To Calendar">
+			</div>
+			</div>
+		</form>
 
 	</div>
 </body>

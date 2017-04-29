@@ -16,6 +16,7 @@ public class User {
 	private String email;
 	private String password;
 	public ArrayList<String> toDoList;
+	public ArrayList<String> schedules;
 	
 	//Calendar calendar;
 	
@@ -25,6 +26,7 @@ public class User {
 		this.password = "";
 		//calendar = new Calendar();
 		toDoList = new ArrayList<String>();
+		schedules = new ArrayList<String>();
 	}
 	
 	public User(String name, String email, String password) {
@@ -33,6 +35,7 @@ public class User {
 		this.password = password;
 		//calendar = new Calendar();
 		toDoList = new ArrayList<String>();
+		schedules = new ArrayList<String>();
 	}
 	
 	public String getName() {
@@ -67,7 +70,15 @@ public class User {
 		toDoList.remove(item);
 	}
 	
-	public void updateCalendar(Schedule schedule) {
-		//this.calendar.updateSchedule(schedule);
+	public void addSchedule(String schedule) {
+		schedules.add(schedule);
+	}
+	
+	/*public void updateCalendar(Schedule schedule) {
+		this.calendar.updateSchedule(schedule);
+	}*/
+	
+	public String toString() {
+		return this.name;
 	}
 }

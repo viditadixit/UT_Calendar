@@ -14,7 +14,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import com.googlecode.objectify.ObjectifyService;
 
-public class UTCalendar extends HttpServlet {
+public class AddSchedule extends HttpServlet {
 	static {
         ObjectifyService.register(User.class);
     }
@@ -22,30 +22,29 @@ public class UTCalendar extends HttpServlet {
 	public void doGet(HttpServletRequest request, HttpServletResponse response) 
 			throws IOException {
 		
-		String username = request.getParameter("username");
-		String password = request.getParameter("password");
-		String name = "";
+		String schedules = request.getParameter("schedules");
+		String email = request.getParameter("email");
 		
 		List<User> users = ObjectifyService.ofy().load().type(User.class).list();
-
-		boolean user = false;
-		
+		User currentUser = new User();
 		for (User u : users) {
-			System.out.println(u.getEmail());
-			System.out.println(u.getPassword());
-			if (u.getEmail().equals(username)) {
-				if (u.getPassword().equals(password)) {
-					request.setAttribute("email", u.getEmail());
-					request.setAttribute("name", u.getName());
-					request.setAttribute("toDoList", u.toDoList);
-					request.setAttribute("schedules", u.schedules);
-					user = true;
-					break;
-				}
+			if (u.getEmail().equals(email)) {
+				currentUser = new User(u.getName(), u.getEmail(), u.getPassword());
+				u.addSchedule(schedules);
+				currentUser.schedules = u.schedules;
+				currentUser.toDoList = u.toDoList;
+				ofy().delete().entity(u).now();
+				break;
 			}
 		}
 		
-		if (user) {
+		ofy().save().entity(currentUser).now();
+		request.setAttribute("email", currentUser.getEmail());
+		request.setAttribute("name", currentUser.getName());
+		request.setAttribute("toDoList", currentUser.toDoList);
+		request.setAttribute("schedules", currentUser.schedules);
+		
+		if (currentUser != null) {
 			RequestDispatcher dispatcher = request.getRequestDispatcher("/calendar.jsp");
 			try {
 				dispatcher.forward(request, response);

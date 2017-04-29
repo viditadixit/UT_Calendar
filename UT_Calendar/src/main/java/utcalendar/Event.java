@@ -20,7 +20,7 @@ public class Event {
 		this.endDate = end;
 	}
 	
-	public void editLocation(Schedule s, String newLoc) {
+	/*public void editLocation(Schedule s, String newLoc) {
 		this.location = newLoc;
 		updateSchedule(s);
 	}
@@ -33,9 +33,9 @@ public class Event {
 	public void editEndDate(Schedule s, Date newEnd) {
 		this.endDate = newEnd;
 		updateSchedule(s);
-	}
+	}*/
 	
-	public void updateSchedule(Schedule s) {
+	/*public void updateSchedule(Schedule s) {
 		s.updateStudents();
-	}
+	}*/
 }
