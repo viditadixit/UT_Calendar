@@ -24,6 +24,6 @@
 		</attributes>
 	</classpathentry>
 	<classpathentry kind="lib" path="src/main/webapp/WEB-INF/lib/objectify-4.0b1.jar"/>
-	<classpathentry kind="lib" path="/Users/kirtanamoorthy/Downloads/jstl-1.2 (1).jar"/>
+	<classpathentry kind="lib" path="/Users/viditadixit/Downloads/jstl-1.2.jar"/>
 	<classpathentry kind="output" path="build/classes"/>
 </classpath>

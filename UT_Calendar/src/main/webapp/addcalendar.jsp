@@ -67,12 +67,15 @@ border-box
 
 </head>
 <%
+	ObjectifyService.register(User.class);
+	ObjectifyService.register(Schedule.class);
 	List<User> users = ObjectifyService.ofy().load().type(User.class).list();
 	Long id = Long.parseLong(request.getParameter("id"));
 	User u = ObjectifyService.ofy().load().type(User.class).filter("id", id).first().get();
 	String idString = Long.toString(id);
 	pageContext.setAttribute("name", u.getName());
 	pageContext.setAttribute("idString", idString);
+	String selectedSchedules = "test";
 %>
 <body>
 
@@ -224,7 +227,7 @@ border-box
 
 		
 		<form class="col=md-12 center-block" action="/addschedule">
-  			<input type="hidden" name="schedules" id="schedules" value="wece" />
+  			<input type="hidden" name="schedules" id="schedules" value=<%=selectedSchedules%> />
   			<input type="hidden" name="id" id="id" value="<%=idString%>" />
 			<div class="col-sm-11" style="padding-bottom: 5px; padding-left: 50px">
 			<div class="form-group">

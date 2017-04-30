@@ -28,6 +28,14 @@
     <servlet-name>AddSchedule</servlet-name>
     <url-pattern>/addschedule</url-pattern>
   </servlet-mapping>
+   <servlet>
+    <servlet-name>NewSchedule</servlet-name>
+    <servlet-class>utcalendar.NewSchedule</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>NewSchedule</servlet-name>
+    <url-pattern>/newschedule</url-pattern>
+  </servlet-mapping>
   <welcome-file-list>
     <welcome-file>login.jsp</welcome-file>
   </welcome-file-list>

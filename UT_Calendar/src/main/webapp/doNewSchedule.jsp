@@ -24,7 +24,6 @@
 </head>
 <body>
 
-<table>
 <%  
 	List<User> users = ObjectifyService.ofy().load().type(User.class).list();
 	Long id = Long.parseLong(request.getParameter("id"));
@@ -90,9 +89,7 @@
 		newSchedule.addEvent(newEvent.getId());
 	}
     ObjectifyService.ofy().save().entity(newSchedule).now(); //create new schedule in objectify
- %>
-</table>
-<%
+    
 	request.setAttribute("id", u.getId());
 	RequestDispatcher dispatcher = request.getRequestDispatcher("/addcalendar.jsp");
 	try {
