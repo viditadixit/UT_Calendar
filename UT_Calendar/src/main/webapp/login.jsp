@@ -41,7 +41,13 @@
 						<input type="password" name="password" id="password" class="form-control input-lg" placeHolder="Password">
 					</div>
 					<div class="form-group">
-							<input type="submit" class="btn btn-block btn-lg btn-warning" value="Login">
+							<input type="submit" class="btn btn-block btn-lg btn-warning" value="Login" style ="color: #ffffff;text-shadow: 0 -1px 0 rgba(0, 0, 0, 0.25);
+						background-color: #006dcc;*background-color: #0044cc;background-image: -moz-linear-gradient(top, #0088cc, #0044cc);
+						background-image: -webkit-gradient(linear, 0 0, 0 100%, from(#0088cc), to(#0044cc));background-image: -webkit-linear-gradient(top, #0088cc, #0044cc);
+						background-image: -o-linear-gradient(top, #0088cc, #0044cc);background-image: linear-gradient(to bottom, #0088cc, #0044cc);
+						background-repeat: repeat-x;border-color: #0044cc #0044cc #002a80;border-color: rgba(0, 0, 0, 0.1) rgba(0, 0, 0, 0.1) rgba(0, 0, 0, 0.25);
+						filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#ff0088cc', endColorstr='#ff0044cc', GradientType=0);
+						filter: progid:DXImageTransform.Microsoft.gradient(enabled=false)">
 					</div>
 				</form>
 			</div>
