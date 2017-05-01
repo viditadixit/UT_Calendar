@@ -75,7 +75,7 @@ border-box
 	String idString = Long.toString(id);
 	pageContext.setAttribute("name", u.getName());
 	pageContext.setAttribute("idString", idString);
-	String selectedSchedules = "test";
+	String selectedSchedules = "tester";
 %>
 <body>
 
@@ -128,14 +128,15 @@ border-box
 			<%
 			for(int i=0; i<schedules.size();i++){
 				pageContext.setAttribute("title",schedules.get(i).getTitle());
-				String name=u.getName();
+				String name = ObjectifyService.ofy().load().type(User.class).filter("id", schedules.get(i).getAuthor()).first().get().getName();
 				pageContext.setAttribute("author", name);
-				out.write(schedules.get(i).getTitle());
+				String title = schedules.get(i).getTitle();
+				Long scheduleID = schedules.get(i).getID();
 				%>
 				<tr>
 				<td>${title}</td> 
 				<td>${author}</td>
-				<td><a href="javascript:void(0)" onclick="addSchedule(1,'Course Schedules')">Add</a> </td>
+				<td><a href="javascript:void(0)" onclick="addSchedule('<%=scheduleID%>','<%=title%>','<%=selectedSchedules%>')">Add</a> </td>
 			</tr>
 			
 			<%
@@ -144,7 +145,7 @@ border-box
 			<tr>
 				<td>Course Schedules</td>
 				<td>Katelyn Ge</td>
-				<td><a href="javascript:void(0)" onclick="addSchedule(1,'Course Schedules')">Add</a> </td>
+				<td><a href="javascript:void(0)" onclick="addSchedule(1,'Course Schedules', 'Test')">Add</a> </td>
 			</tr>
 			<tr>
 				<td>WECE Social Calendar</td>
@@ -212,10 +213,10 @@ border-box
 				}
 				
 			}
-			function addSchedule(scheduleID, scheduleName){
-				content=$("#mySchedule").html()+"<br>"+scheduleName;
+			//NEED TO IMPLEMENT THIS
+			function addSchedule(scheduleID, scheduleName, selected){
+				content=$("#mySchedule").html()+"<br>"+scheduleName+selected+"</br>";
 				$("#mySchedule").html(content);
-				
 				//send request to server, add ID
 				/*$.ajax({
 					  url: "doAddSchedule.jsp?id="+scheduleID,
@@ -223,6 +224,8 @@ border-box
 						  content=$("#mySchedule").html()+"<br>"+scheduleName;
 							$("#mySchedule").html(content);
 					  }); */
+				selected = selected + " " + scheduleName;
+				document.getElementById('#schedules').value = selected;
 			}
 		</script>
 
@@ -241,10 +244,8 @@ border-box
 			</div>
 		</form>
 		
-
-		
 		<form class="col=md-12 center-block" action="/addschedule">
-  			<input type="hidden" name="schedules" id="schedules" value=<%=selectedSchedules%> />
+  			<input type="hidden" name="schedules" id="schedules"/>
   			<input type="hidden" name="id" id="id" value="<%=idString%>" />
 			<div class="col-sm-11" style="padding-bottom: 5px; padding-left: 50px">
 			<div class="form-group">

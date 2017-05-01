@@ -31,7 +31,8 @@ public class AddSchedule extends HttpServlet {
 			if (u.getId().equals(id)) {
 				currentUser = new User(u.getName(), u.getEmail(), u.getPassword());
 				currentUser.setId(id);
-				u.addSchedule(schedule);
+				if (!schedule.equals("/"))
+					u.addSchedule(schedule);
 				currentUser.toDoList = u.toDoList;
 				currentUser.schedules = u.schedules;
 				ofy().delete().entity(u).now();

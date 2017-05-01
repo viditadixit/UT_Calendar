@@ -39,6 +39,10 @@ public class Schedule {
 		this.title= title;
 	}
 	
+	public Long getID() {
+		return this.id;
+	}
+	
 	public Long getAuthor() {
 		return this.authorId;
 	}
