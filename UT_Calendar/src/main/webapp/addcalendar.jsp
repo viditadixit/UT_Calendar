@@ -84,12 +84,23 @@ border-box
 			<div class="navbar-header">
 				<a class="navbar-brand" href="#">UTCalendar</a>
 			</div>
-			<ul class="nav navbar-nav">
-				<li><b><font color=white>Hello, ${name}!</font></b></li>
+			<ul class="nav navbar-nav navbar-center">
+				<li style="text-align:center;text-indent:150px">
+				<a href="#">Hello, ${name}!</a></li>
 			</ul>
 			<ul class="nav navbar-nav navbar-right">
-				<li><a href="#"><span class="glyphicon glyphicon-log-out"></span>
-						Logout</a></li>
+				<li>
+					<form action="login.jsp">
+						<button style ="color: #ffffff;text-shadow: 0 -1px 0 rgba(0, 0, 0, 0.25);
+						background-color: #006dcc;*background-color: #0044cc;background-image: -moz-linear-gradient(top, #0088cc, #0044cc);
+						background-image: -webkit-gradient(linear, 0 0, 0 100%, from(#0088cc), to(#0044cc));background-image: -webkit-linear-gradient(top, #0088cc, #0044cc);
+						background-image: -o-linear-gradient(top, #0088cc, #0044cc);background-image: linear-gradient(to bottom, #0088cc, #0044cc);
+						background-repeat: repeat-x;border-color: #0044cc #0044cc #002a80;border-color: rgba(0, 0, 0, 0.1) rgba(0, 0, 0, 0.1) rgba(0, 0, 0, 0.25);
+						filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#ff0088cc', endColorstr='#ff0044cc', GradientType=0);
+						filter: progid:DXImageTransform.Microsoft.gradient(enabled=false)"class="btn btn-default navbar-btn">Logout
+						</button>
+					</form>
+				</li>
 			</ul>
 		</div>
 	</nav>
@@ -219,7 +230,13 @@ border-box
   			<input type="hidden" name="id" id="id" value="<%=idString%>" />
 			<div class="col-sm-11" style="padding-bottom: 5px; padding-left: 50px">
 			<div class="form-group">
-				<input type="submit" class="btn btn-primary pull-left" value="Create New Schedule">
+				<input type="submit" class="btn btn-primary pull-left" value="Create New Schedule" style ="color: #ffffff;text-shadow: 0 -1px 0 rgba(0, 0, 0, 0.25);
+						background-color: #006dcc;*background-color: #0044cc;background-image: -moz-linear-gradient(top, #0088cc, #0044cc);
+						background-image: -webkit-gradient(linear, 0 0, 0 100%, from(#0088cc), to(#0044cc));background-image: -webkit-linear-gradient(top, #0088cc, #0044cc);
+						background-image: -o-linear-gradient(top, #0088cc, #0044cc);background-image: linear-gradient(to bottom, #0088cc, #0044cc);
+						background-repeat: repeat-x;border-color: #0044cc #0044cc #002a80;border-color: rgba(0, 0, 0, 0.1) rgba(0, 0, 0, 0.1) rgba(0, 0, 0, 0.25);
+						filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#ff0088cc', endColorstr='#ff0044cc', GradientType=0);
+						filter: progid:DXImageTransform.Microsoft.gradient(enabled=false)">
 			</div>
 			</div>
 		</form>
@@ -231,7 +248,13 @@ border-box
   			<input type="hidden" name="id" id="id" value="<%=idString%>" />
 			<div class="col-sm-11" style="padding-bottom: 5px; padding-left: 50px">
 			<div class="form-group">
-				<input type="submit" class="btn btn-primary pull-left" value="Back To Calendar">
+				<input type="submit" class="btn btn-primary pull-left" value="Back To Calendar" style ="color: #ffffff;text-shadow: 0 -1px 0 rgba(0, 0, 0, 0.25);
+						background-color: #006dcc;*background-color: #0044cc;background-image: -moz-linear-gradient(top, #0088cc, #0044cc);
+						background-image: -webkit-gradient(linear, 0 0, 0 100%, from(#0088cc), to(#0044cc));background-image: -webkit-linear-gradient(top, #0088cc, #0044cc);
+						background-image: -o-linear-gradient(top, #0088cc, #0044cc);background-image: linear-gradient(to bottom, #0088cc, #0044cc);
+						background-repeat: repeat-x;border-color: #0044cc #0044cc #002a80;border-color: rgba(0, 0, 0, 0.1) rgba(0, 0, 0, 0.1) rgba(0, 0, 0, 0.25);
+						filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#ff0088cc', endColorstr='#ff0044cc', GradientType=0);
+						filter: progid:DXImageTransform.Microsoft.gradient(enabled=false)">
 			</div>
 			</div>
 		</form>
