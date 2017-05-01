@@ -136,7 +136,7 @@ border-box
 				<tr>
 				<td>${title}</td> 
 				<td>${author}</td>
-				<td><a href="javascript:void(0)" onclick="addSchedule('<%=scheduleID%>','<%=title%>','<%=selectedSchedules%>')">Add</a> </td>
+				<td><a href="/addschedule?id=${idString}&schedules=${title}">Add</a> </td>
 			</tr>
 			
 			<%
@@ -244,9 +244,8 @@ border-box
 			</div>
 		</form>
 		
-		<form class="col=md-12 center-block" action="/addschedule">
-  			<input type="hidden" name="schedules" id="schedules"/>
-  			<input type="hidden" name="id" id="id" value="<%=idString%>" />
+		<form class="col=md-12 center-block" action="calendar.jsp">
+  			<input type="hidden" name="id" id="id" value="<%=id%>" />
 			<div class="col-sm-11" style="padding-bottom: 5px; padding-left: 50px">
 			<div class="form-group">
 				<input type="submit" class="btn btn-primary pull-left" value="Back To Calendar" style ="color: #ffffff;text-shadow: 0 -1px 0 rgba(0, 0, 0, 0.25);

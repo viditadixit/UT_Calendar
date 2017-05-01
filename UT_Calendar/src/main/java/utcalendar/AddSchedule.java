@@ -41,10 +41,10 @@ public class AddSchedule extends HttpServlet {
 		}
 
 		ofy().save().entity(currentUser).now();
-		request.setAttribute("id", currentUser.getId());
+		request.setAttribute("id", Long.toString(currentUser.getId()));
 		
 		if (currentUser != null) {
-			RequestDispatcher dispatcher = request.getRequestDispatcher("/calendar.jsp");
+			RequestDispatcher dispatcher = request.getRequestDispatcher("/addcalendar.jsp");
 			try {
 				dispatcher.forward(request, response);
 			} catch (ServletException e) {
