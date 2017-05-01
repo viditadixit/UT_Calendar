@@ -118,7 +118,7 @@ table.table-borderless>thead>tr>th, table.table-borderless>tbody>tr>td {
 </head>
 <%
 	List<User> users = ObjectifyService.ofy().load().type(User.class).list();
-	Long id = Long.parseLong((String)request.getAttribute("id"));
+	Long id = (Long) request.getAttribute("id");
 	User u = ObjectifyService.ofy().load().type(User.class).filter("id", id).first().get();
 	String idString = Long.toString(id);
 	pageContext.setAttribute("name", u.getName());

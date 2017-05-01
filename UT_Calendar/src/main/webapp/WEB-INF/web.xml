@@ -36,6 +36,14 @@
     <servlet-name>NewSchedule</servlet-name>
     <url-pattern>/newschedule</url-pattern>
   </servlet-mapping>
+     <servlet>
+    <servlet-name>BackToCalendar</servlet-name>
+    <servlet-class>utcalendar.BackToCalendar</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>BackToCalendar</servlet-name>
+    <url-pattern>/backtocalendar</url-pattern>
+  </servlet-mapping>
   <welcome-file-list>
     <welcome-file>login.jsp</welcome-file>
   </welcome-file-list>
