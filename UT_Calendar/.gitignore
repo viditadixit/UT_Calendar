@@ -2,5 +2,3 @@
 .classpath
 .settings/com.google.cloud.tools.eclipse.appengine.deploy.prefs
 src/main/webapp/WEB-INF/appengine-web.xml
-/bin/
-.settings/com.google.cloud.tools.eclipse.appengine.libraries/appengine-api.container
