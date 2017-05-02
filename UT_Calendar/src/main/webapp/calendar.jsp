@@ -516,6 +516,9 @@ table.table-borderless>thead>tr>th, table.table-borderless>tbody>tr>td {
 					<div class="panel-heading">
 						<h3 class="panel-title" align="center">To-Do List</h3>
 					</div>
+					<div class="panel-body">
+ 					</div>
+ 					<div align="center" >
 					<div class="text-center">
 						<%
 							ArrayList<String> toDoList = (ArrayList<String>) pageContext.getAttribute("toDoList");
@@ -534,7 +537,7 @@ table.table-borderless>thead>tr>th, table.table-borderless>tbody>tr>td {
 						<input type="text" name="item" id="item" class="input-group" placeHolder="New Item">
 					</div>
 					<div class="form-group">
-						<input type="submit" class="form-control" value="Add" style ="color: #ffffff;text-shadow: 0 -1px 0 rgba(0, 0, 0, 0.25);
+						<input type="submit" class="btn btn-sm btn-default" value="Add" style ="color: #ffffff;text-shadow: 0 -1px 0 rgba(0, 0, 0, 0.25);
 						background-color: #006dcc;*background-color: #0044cc;background-image: -moz-linear-gradient(top, #0088cc, #0044cc);
 						background-image: -webkit-gradient(linear, 0 0, 0 100%, from(#0088cc), to(#0044cc));background-image: -webkit-linear-gradient(top, #0088cc, #0044cc);
 						background-image: -o-linear-gradient(top, #0088cc, #0044cc);background-image: linear-gradient(to bottom, #0088cc, #0044cc);
