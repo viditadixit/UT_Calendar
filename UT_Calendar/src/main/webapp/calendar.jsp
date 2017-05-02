@@ -173,7 +173,7 @@ table.table-borderless>thead>tr>th, table.table-borderless>tbody>tr>td {
 					</div>
 					<div class="panel-body">
 					</div>
-					<div align="center" style="margin-bottom: 20px;">
+					<div align="center" >
 					<div class="text-center">
 						<%
 							List<Schedule> scheduleList = ObjectifyService.ofy().load().type(Schedule.class).list();
@@ -199,8 +199,7 @@ table.table-borderless>thead>tr>th, table.table-borderless>tbody>tr>td {
 						background-repeat: repeat-x;border-color: #0044cc #0044cc #002a80;border-color: rgba(0, 0, 0, 0.1) rgba(0, 0, 0, 0.1) rgba(0, 0, 0, 0.25);
 						filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#ff0088cc', endColorstr='#ff0044cc', GradientType=0);
 						filter: progid:DXImageTransform.Microsoft.gradient(enabled=false)"
-								onclick="location.href='addcalendar.jsp?id=${idString}'">Add
-								Schedule</button>
+								onclick="location.href='addcalendar.jsp?id=${idString}'">Add/Delete</button>
 						</form>
 					</div>
 				</div>
@@ -492,14 +491,16 @@ table.table-borderless>thead>tr>th, table.table-borderless>tbody>tr>td {
 			<div class="col-sm-2">
 				<div class="panel panel-default" align="right">
 					<div class="panel-heading">
-						<h3 class="panel-title" align="center">To Do list</h3>
+						<h3 class="panel-title" align="center">To-Do List</h3>
 					</div>
 					<div class="text-center">
 						<%
 							ArrayList<String> toDoList = (ArrayList<String>) pageContext.getAttribute("toDoList");
 							for (String item : toDoList) { 
 								pageContext.setAttribute("item", item); %>
-								<p>${item}</p>
+								<p  align="left" style="padding: 5px 5px">${item}
+								${s}<a href="/deleteitem?id=${idString}&item=${item}" style="float: right; color:red">X</a></p>
+								
 						<% 		
 							}
 						%>

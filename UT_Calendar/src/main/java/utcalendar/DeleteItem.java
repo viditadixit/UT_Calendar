@@ -14,7 +14,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import com.googlecode.objectify.ObjectifyService;
 
-public class AddSchedule extends HttpServlet {
+public class DeleteItem extends HttpServlet {
 	static {
         ObjectifyService.register(User.class);
     }
@@ -22,28 +22,28 @@ public class AddSchedule extends HttpServlet {
 	public void doGet(HttpServletRequest request, HttpServletResponse response) 
 			throws IOException {
 		
-		String schedule = (String) request.getParameter("schedules");
+		String item = (String) request.getParameter("item");
 		Long id = Long.parseLong(request.getParameter("id"));
 
 		List<User> users = ObjectifyService.ofy().load().type(User.class).list();
 		User currentUser = new User();
 		for (User u : users) {
 			if (u.getId().equals(id)) {
-				if (!schedule.equals("")) {
+				if (!item.equals("")) {
 					currentUser = new User(u.getName(), u.getEmail(), u.getPassword());
 					currentUser.setId(id);
-					u.addSchedule(schedule);
+					u.deleteItem(item);
 					currentUser.toDoList = u.toDoList;
 					currentUser.schedules = u.schedules;
 					ofy().delete().entity(u).now();
 					ofy().save().entity(currentUser).now();
-					request.setAttribute("id", Long.toString(currentUser.getId()));
+					request.setAttribute("id", id);
 				}
 				break;
 			}
 		}
 
-		RequestDispatcher dispatcher = request.getRequestDispatcher("/addcalendar.jsp");
+		RequestDispatcher dispatcher = request.getRequestDispatcher("/calendar.jsp");
 		try {
 			dispatcher.forward(request, response);
 		} catch (ServletException e) {

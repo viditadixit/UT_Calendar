@@ -44,6 +44,22 @@
     <servlet-name>BackToCalendar</servlet-name>
     <url-pattern>/backtocalendar</url-pattern>
   </servlet-mapping>
+       <servlet>
+    <servlet-name>DeleteSchedule</servlet-name>
+    <servlet-class>utcalendar.DeleteSchedule</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>DeleteSchedule</servlet-name>
+    <url-pattern>/deleteschedule</url-pattern>
+  </servlet-mapping>
+         <servlet>
+    <servlet-name>DeleteItem</servlet-name>
+    <servlet-class>utcalendar.DeleteItem</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>DeleteItem</servlet-name>
+    <url-pattern>/deleteitem</url-pattern>
+  </servlet-mapping>
   <welcome-file-list>
     <welcome-file>login.jsp</welcome-file>
   </welcome-file-list>

@@ -78,6 +78,10 @@ public class User {
 		schedules.add(schedule);
 	}
 	
+	public void deleteSchedule(String schedule) {
+		schedules.remove(schedule);
+	}
+	
 	public String toString() {
 		return this.name;
 	}
