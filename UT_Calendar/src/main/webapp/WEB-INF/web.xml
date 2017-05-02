@@ -60,6 +60,14 @@
     <servlet-name>DeleteItem</servlet-name>
     <url-pattern>/deleteitem</url-pattern>
   </servlet-mapping>
+  <servlet>
+    <servlet-name>BackToSchedules</servlet-name>
+    <servlet-class>utcalendar.BackToSchedules</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>BackToSchedules</servlet-name>
+    <url-pattern>/backtoschedules</url-pattern>
+  </servlet-mapping>
   <welcome-file-list>
     <welcome-file>login.jsp</welcome-file>
   </welcome-file-list>
