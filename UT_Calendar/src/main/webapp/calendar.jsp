@@ -3,7 +3,12 @@
 <%@ page import ="java.util.List" %>
 <%@ page import ="java.util.ArrayList" %>
 <%@ page import="com.googlecode.objectify.*" %>
+<%@ page import ="java.util.Date" %>
+<%@ page import ="java.util.Calendar" %>
+<%@ page import ="java.util.Locale" %>
+<%@ page import ="java.text.*" %>
 <%@ page import="utcalendar.User" %>
+<%@ page import="utcalendar.Week" %>
 
 <head>
 <meta charset="UTF-8">
@@ -192,18 +197,38 @@ table.table-borderless>thead>tr>th, table.table-borderless>tbody>tr>td {
 					</div>
 				</div>
 			</div>
+			<%	Calendar c = Calendar.getInstance(Locale.US);
+				c.set(Calendar.DAY_OF_WEEK, 1);
+				int dayOfWeek = c.get(Calendar.DAY_OF_WEEK);
+				ArrayList<String> times = new ArrayList<String>();
+				ArrayList<Date> thisWeek = new ArrayList<Date>();
+				for (int i = 1; i < 8; i++) {
+					c.set(Calendar.DAY_OF_WEEK, i);
+					Date currentDate = c.getTime();
+					String[] timeComponents = c.getTime().toString().split(" ");
+					times.add(timeComponents[1] + " " + timeComponents[2]);
+					thisWeek.add(currentDate);
+				}
+				pageContext.setAttribute("Sunday", times.get(0));
+				pageContext.setAttribute("Monday", times.get(1));
+				pageContext.setAttribute("Tuesday", times.get(2));
+				pageContext.setAttribute("Wednesday", times.get(3));
+				pageContext.setAttribute("Thursday", times.get(4));
+				pageContext.setAttribute("Friday", times.get(5));
+				pageContext.setAttribute("Saturday", times.get(6));
+			%>
 			<div class="col-sm-8">
 				<table class="calendar table table-bordered">
 					<thead>
 						<tr>
 							<th>&nbsp;</th>
-							<th width="14%">Sunday</th>
-							<th width="14%">Monday</th>
-							<th width="14%">Tuesday</th>
-							<th width="14%">Wednesday</th>
-							<th width="14%">Thursday</th>
-							<th width="14%">Friday</th>
-							<th width="14%">Saturday</th>
+							<th width="14%">${Sunday}</th>
+							<th width="14%">${Monday}</th>
+							<th width="14%">${Tuesday}</th>
+							<th width="14%">${Wednesday}</th>
+							<th width="14%">${Thursday}</th>
+							<th width="14%">${Friday}</th>
+							<th width="14%">${Saturday}</th>
 						</tr>
 					</thead>
 					<tbody>
