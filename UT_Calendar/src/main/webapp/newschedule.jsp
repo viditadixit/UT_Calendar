@@ -111,18 +111,23 @@
 						filter: progid:DXImageTransform.Microsoft.gradient(enabled=false)">Create
 					Schedule</button>
 			</div>
-			<div class="col-sm-11" style="padding-bottom: 5px">
-				<button type="button" class="btn btn-primary pull-right"
-					onclick="location.href='addcalendar.jsp'" style ="color: #ffffff;text-shadow: 0 -1px 0 rgba(0, 0, 0, 0.25);
+	</div>
+	</form>
+	
+			<form class="col-sm-11" action="/backtoschedules">
+  			<input type="hidden" name="id" id="id" value="<%=idString%>" />
+			<div class="col-sm-11" style="padding-bottom: 5px;padding-top: 10px">
+			<div class="form-group">
+				<input type="submit" class="btn btn-primary pull-right" value="Cancel" style ="color: #ffffff;text-shadow: 0 -1px 0 rgba(0, 0, 0, 0.25);
 						background-color: #006dcc;*background-color: #0044cc;background-image: -moz-linear-gradient(top, #0088cc, #0044cc);
 						background-image: -webkit-gradient(linear, 0 0, 0 100%, from(#0088cc), to(#0044cc));background-image: -webkit-linear-gradient(top, #0088cc, #0044cc);
 						background-image: -o-linear-gradient(top, #0088cc, #0044cc);background-image: linear-gradient(to bottom, #0088cc, #0044cc);
 						background-repeat: repeat-x;border-color: #0044cc #0044cc #002a80;border-color: rgba(0, 0, 0, 0.1) rgba(0, 0, 0, 0.1) rgba(0, 0, 0, 0.25);
 						filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#ff0088cc', endColorstr='#ff0044cc', GradientType=0);
-						filter: progid:DXImageTransform.Microsoft.gradient(enabled=false)">Cancel</button>
+						filter: progid:DXImageTransform.Microsoft.gradient(enabled=false)">
 			</div>
-	</div>
-	</form>
+			</div>
+		</form>
 
 
 	<script

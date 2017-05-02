@@ -191,7 +191,7 @@ table.table-borderless>thead>tr>th, table.table-borderless>tbody>tr>td {
 						background-image: -o-linear-gradient(top, #0088cc, #0044cc);background-image: linear-gradient(to bottom, #0088cc, #0044cc);
 						background-repeat: repeat-x;border-color: #0044cc #0044cc #002a80;border-color: rgba(0, 0, 0, 0.1) rgba(0, 0, 0, 0.1) rgba(0, 0, 0, 0.25);
 						filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#ff0088cc', endColorstr='#ff0044cc', GradientType=0);
-						filter: progid:DXImageTransform.Microsoft.gradient(enabled=false)"
+						filter: progid:DXImageTransform.Microsoft.gradient(enabled=false) padding: 5px 5px"
 								onclick="location.href='addcalendar.jsp?id=${idString}'">Add/Delete</button>
 						</form>
 					</div>
@@ -485,6 +485,9 @@ table.table-borderless>thead>tr>th, table.table-borderless>tbody>tr>td {
 					<div class="panel-heading">
 						<h3 class="panel-title" align="center">To-Do List</h3>
 					</div>
+					<div class="panel-body">
+					</div>
+					<div align="center" >
 					<div class="text-center">
 						<%
 							ArrayList<String> toDoList = (ArrayList<String>) pageContext.getAttribute("toDoList");
@@ -492,7 +495,6 @@ table.table-borderless>thead>tr>th, table.table-borderless>tbody>tr>td {
 								pageContext.setAttribute("item", item); %>
 								<p  align="left" style="padding: 5px 5px">${item}
 								${s}<a href="/deleteitem?id=${idString}&item=${item}" style="float: right; color:red">X</a></p>
-								
 						<% 		
 							}
 						%>
@@ -503,7 +505,7 @@ table.table-borderless>thead>tr>th, table.table-borderless>tbody>tr>td {
 						<input type="text" name="item" id="item" class="input-group" placeHolder="New Item">
 					</div>
 					<div class="form-group">
-						<input type="submit" class="form-control" value="Add" style ="color: #ffffff;text-shadow: 0 -1px 0 rgba(0, 0, 0, 0.25);
+						<input type="submit" class="btn btn-sm btn-default" value="Add" style ="color: #ffffff;text-shadow: 0 -1px 0 rgba(0, 0, 0, 0.25);
 						background-color: #006dcc;*background-color: #0044cc;background-image: -moz-linear-gradient(top, #0088cc, #0044cc);
 						background-image: -webkit-gradient(linear, 0 0, 0 100%, from(#0088cc), to(#0044cc));background-image: -webkit-linear-gradient(top, #0088cc, #0044cc);
 						background-image: -o-linear-gradient(top, #0088cc, #0044cc);background-image: linear-gradient(to bottom, #0088cc, #0044cc);
