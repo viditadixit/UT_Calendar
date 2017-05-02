@@ -14,7 +14,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import com.googlecode.objectify.ObjectifyService;
 
-public class AddSchedule extends HttpServlet {
+public class DeleteSchedule extends HttpServlet {
 	static {
         ObjectifyService.register(User.class);
     }
@@ -32,7 +32,7 @@ public class AddSchedule extends HttpServlet {
 				if (!schedule.equals("")) {
 					currentUser = new User(u.getName(), u.getEmail(), u.getPassword());
 					currentUser.setId(id);
-					u.addSchedule(schedule);
+					u.deleteSchedule(schedule);
 					currentUser.toDoList = u.toDoList;
 					currentUser.schedules = u.schedules;
 					ofy().delete().entity(u).now();

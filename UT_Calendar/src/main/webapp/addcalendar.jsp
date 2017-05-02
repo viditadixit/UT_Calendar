@@ -75,7 +75,6 @@ border-box
 	String idString = Long.toString(id);
 	pageContext.setAttribute("name", u.getName());
 	pageContext.setAttribute("idString", idString);
-	String selectedSchedules = "tester";
 %>
 <body>
 
@@ -114,8 +113,7 @@ border-box
 	%>
 
 	<div class="container">
-		<h1>Add Schedules</h1>
-		<p>Search for schedule to add</p>
+		<h1>Add/Delete Schedules</h1>
 		<input type="text" id="myInput" onkeyup="myFunction()"
 			placeholder="Search for schedules.." title="Type in a name">
 
@@ -131,7 +129,6 @@ border-box
 				String name = ObjectifyService.ofy().load().type(User.class).filter("id", schedules.get(i).getAuthor()).first().get().getName();
 				pageContext.setAttribute("author", name);
 				String title = schedules.get(i).getTitle();
-				Long scheduleID = schedules.get(i).getID();
 				%>
 				<tr>
 				<td>${title}</td> 
@@ -205,7 +202,7 @@ border-box
 						}
 					}
 				}
-				if(input.value=="" || input.value=="Search for schedules.."){
+				if(input.value=="" || input.value=="Search for schedules to add"){
 					$("#myTable").hide();
 				}
 				else{ 
@@ -214,9 +211,9 @@ border-box
 				
 			}
 			//NEED TO IMPLEMENT THIS
-			function addSchedule(scheduleID, scheduleName, selected){
+			function addSchedule(scheduleID, scheduleName){
 				content=$("#mySchedule").html()+"<br>"+scheduleName+selected+"</br>";
-				$("#mySchedule").html(content);
+				//$("#mySchedule").html(content);
 				//send request to server, add ID
 				/*$.ajax({
 					  url: "doAddSchedule.jsp?id="+scheduleID,
@@ -224,15 +221,22 @@ border-box
 						  content=$("#mySchedule").html()+"<br>"+scheduleName;
 							$("#mySchedule").html(content);
 					  }); */
-				selected = selected + " " + scheduleName;
-				document.getElementById('#schedules').value = selected;
 			}
 		</script>
+		<%
+			ArrayList<String> mySchedules = u.schedules;
+			for (String s : mySchedules) {
+				pageContext.setAttribute("s", s); %>
+				<p>${s}<a href="/deleteschedule?id=${idString}&schedules=${s}" style="float: right;">Delete</a></p>
 
+		<% 		
+			}
+		%>
+		
 		<form class="col=md-12 center-block" action="newschedule.jsp">
   			<input type="hidden" name="id" id="id" value="<%=idString%>" />
-			<div class="col-sm-11" style="padding-bottom: 5px; padding-left: 50px">
-			<div class="form-group">
+			<div class="col-sm-11" style="padding-bottom: 5px; padding-top: 10px">
+			<div class="form-group" align="right">
 				<input type="submit" class="btn btn-primary pull-left" value="Create New Schedule" style ="color: #ffffff;text-shadow: 0 -1px 0 rgba(0, 0, 0, 0.25);
 						background-color: #006dcc;*background-color: #0044cc;background-image: -moz-linear-gradient(top, #0088cc, #0044cc);
 						background-image: -webkit-gradient(linear, 0 0, 0 100%, from(#0088cc), to(#0044cc));background-image: -webkit-linear-gradient(top, #0088cc, #0044cc);
@@ -246,7 +250,7 @@ border-box
 		
 		<form class="col=md-12 center-block" action="/backtocalendar">
   			<input type="hidden" name="id" id="id" value="<%=idString%>" />
-			<div class="col-sm-11" style="padding-bottom: 5px; padding-left: 50px">
+			<div class="col-sm-11" style="padding-bottom: 5px">
 			<div class="form-group">
 				<input type="submit" class="btn btn-primary pull-left" value="Back To Calendar" style ="color: #ffffff;text-shadow: 0 -1px 0 rgba(0, 0, 0, 0.25);
 						background-color: #006dcc;*background-color: #0044cc;background-image: -moz-linear-gradient(top, #0088cc, #0044cc);

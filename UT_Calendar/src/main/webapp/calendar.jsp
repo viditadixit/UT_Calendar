@@ -187,8 +187,7 @@ table.table-borderless>thead>tr>th, table.table-borderless>tbody>tr>td {
 						background-repeat: repeat-x;border-color: #0044cc #0044cc #002a80;border-color: rgba(0, 0, 0, 0.1) rgba(0, 0, 0, 0.1) rgba(0, 0, 0, 0.25);
 						filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#ff0088cc', endColorstr='#ff0044cc', GradientType=0);
 						filter: progid:DXImageTransform.Microsoft.gradient(enabled=false)"
-								onclick="location.href='addcalendar.jsp?id=${idString}'">Add
-								Schedule</button>
+								onclick="location.href='addcalendar.jsp?id=${idString}'">Add/Delete</button>
 						</form>
 					</div>
 				</div>
