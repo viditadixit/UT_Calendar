@@ -459,14 +459,16 @@ table.table-borderless>thead>tr>th, table.table-borderless>tbody>tr>td {
 			<div class="col-sm-2">
 				<div class="panel panel-default" align="right">
 					<div class="panel-heading">
-						<h3 class="panel-title" align="center">To Do list</h3>
+						<h3 class="panel-title" align="center">To-Do List</h3>
 					</div>
 					<div class="text-center">
 						<%
 							ArrayList<String> toDoList = (ArrayList<String>) pageContext.getAttribute("toDoList");
 							for (String item : toDoList) { 
 								pageContext.setAttribute("item", item); %>
-								<p>${item}</p>
+								<p  align="left" style="padding: 5px 5px">${item}
+								${s}<a href="/deleteschedule?id=${idString}&schedules=${s}" style="float: right; color:red">X</a></p>
+								
 						<% 		
 							}
 						%>
