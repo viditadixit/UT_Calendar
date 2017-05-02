@@ -8,12 +8,9 @@
 <%@ page import ="java.util.Locale" %>
 <%@ page import ="java.text.*" %>
 <%@ page import="utcalendar.User" %>
-<<<<<<< HEAD
 <%@ page import="utcalendar.Schedule" %>
 <%@ page import="utcalendar.Event" %>
-=======
-<%@ page import="utcalendar.Week" %>
->>>>>>> origin/master
+
 
 <head>
 <meta charset="UTF-8">
@@ -212,7 +209,7 @@ table.table-borderless>thead>tr>th, table.table-borderless>tbody>tr>td {
 					</div>
 				</div>
 			</div>
-<<<<<<< HEAD
+
 			<%
 			
 			//get Events from datastore to add to calendar
@@ -230,12 +227,7 @@ table.table-borderless>thead>tr>th, table.table-borderless>tbody>tr>td {
 				}
 			}
 			//CalendarEvents is an ArrayList of Event Objects that supposed to be in the calendar
-			
-			%>		
-			
-			
-=======
-			<%	Calendar c = Calendar.getInstance(Locale.US);
+			Calendar c = Calendar.getInstance(Locale.US);
 				c.set(Calendar.DAY_OF_WEEK, 1);
 				int dayOfWeek = c.get(Calendar.DAY_OF_WEEK);
 				ArrayList<String> times = new ArrayList<String>();
@@ -255,7 +247,7 @@ table.table-borderless>thead>tr>th, table.table-borderless>tbody>tr>td {
 				pageContext.setAttribute("Friday", times.get(5));
 				pageContext.setAttribute("Saturday", times.get(6));
 			%>
->>>>>>> origin/master
+
 			<div class="col-sm-8">
 				<table class="calendar table table-bordered">
 					<thead>
