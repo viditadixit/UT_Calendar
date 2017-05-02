@@ -86,7 +86,7 @@
    				      <label for="name1" style="margin-right: 10px">Event 1: </label><input type="text"  class="form-control" id="name1" name="name1">
                   </div>
                   <div class="form-group" style="padding: 5px 5px">
-                  		<label for="name1" style="margin-right: 10px">Date: </label><input type="date" class="form-control" id="date1" name="date1" placeholder="mm/dd/yy" style="padding: 5px 5px">
+                  		<label for="date1" style="margin-right: 10px">Date 1: </label><input type="date" class="form-control" id="date1" name="date1" placeholder="mm/dd/yy">
                   </div>		
                   <div class="form-group" style="padding: 5px 5px">
                      <label for="timefrom1" style="margin-right: 10px">From: </label><input type="time" class="form-control" id="timefrom1" name="timefrom1">
@@ -144,7 +144,9 @@
                 "  <div class='form-group' style='padding-right: 20px;'>" +
                    "  <label for='name{}'>Event {}:</label> <input type='text'  class='form-control' name='name{}'>" +
 						"</div>" +
-						" <input type='date' class='form-control' name='date{}'  placeholder='mm/dd/yy' style='padding-right: 10px;'>" +
+					"	<div class='form-group' style='padding: 5px 5px'>" +
+                  	"	<label for='date{}'>Date {}:</label> <input type='date' class='form-control' name='date{}'  placeholder='mm/dd/yy'>" +
+                  		"</div>" +
                   "<div class='form-group' style='padding-left: 20px'>" +
                    "  <label for='timefrom{}'>From:</label> <input type='time' class='form-control' name='timefrom{}'>" +
                   "</div>" +
