@@ -171,7 +171,7 @@ table.table-borderless>thead>tr>th, table.table-borderless>tbody>tr>td {
 					<div class="panel-heading" align="center">
 						<h3 class="panel-title">Schedules</h3>
 					</div>
-					<div class="panel-body">
+					<div class="panel-body" style="margin:0;">
 					</div>
 					<div align="center" >
 					<div class="text-center">
@@ -179,7 +179,7 @@ table.table-borderless>thead>tr>th, table.table-borderless>tbody>tr>td {
 							ArrayList<String> schedules = (ArrayList<String>) pageContext.getAttribute("schedules");
 							for (String s : schedules) { 
 								pageContext.setAttribute("schedule", s); %>
-								<p>${schedule}</p>
+								<p style="margin: 0px 10px 10px;">${schedule}</p>
 						<% 		
 							}
 						%>
@@ -191,7 +191,7 @@ table.table-borderless>thead>tr>th, table.table-borderless>tbody>tr>td {
 						background-image: -o-linear-gradient(top, #0088cc, #0044cc);background-image: linear-gradient(to bottom, #0088cc, #0044cc);
 						background-repeat: repeat-x;border-color: #0044cc #0044cc #002a80;border-color: rgba(0, 0, 0, 0.1) rgba(0, 0, 0, 0.1) rgba(0, 0, 0, 0.25);
 						filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#ff0088cc', endColorstr='#ff0044cc', GradientType=0);
-						filter: progid:DXImageTransform.Microsoft.gradient(enabled=false) padding: 5px 5px"
+						filter: progid:DXImageTransform.Microsoft.gradient(enabled=false) padding: 5px 5px; margin: 0px 0px 15px 0px"
 								onclick="location.href='addcalendar.jsp?id=${idString}'">Add/Delete</button>
 						</form>
 					</div>
@@ -493,7 +493,7 @@ table.table-borderless>thead>tr>th, table.table-borderless>tbody>tr>td {
 							ArrayList<String> toDoList = (ArrayList<String>) pageContext.getAttribute("toDoList");
 							for (String item : toDoList) { 
 								pageContext.setAttribute("item", item); %>
-								<p  align="left" style="padding: 5px 5px">${item}
+								<p  align="left" style="margin: 0px 10px 10px;">${item}
 								${s}<a href="/deleteitem?id=${idString}&item=${item}" style="float: right; color:red">X</a></p>
 						<% 		
 							}
