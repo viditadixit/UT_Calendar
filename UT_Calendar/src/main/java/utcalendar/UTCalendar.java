@@ -19,7 +19,6 @@ public class UTCalendar extends HttpServlet {
         ObjectifyService.register(User.class);
         ObjectifyService.register(Schedule.class);
         ObjectifyService.register(Event.class);
-        ObjectifyService.register(Week.class);
     }
 
 	public void doGet(HttpServletRequest request, HttpServletResponse response) 

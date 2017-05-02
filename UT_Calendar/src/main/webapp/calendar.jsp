@@ -10,7 +10,7 @@
 <%@ page import="utcalendar.User" %>
 <%@ page import="utcalendar.Schedule" %>
 <%@ page import="utcalendar.Event" %>
-
+<%@ page import="java.util.Collections" %>
 
 <head>
 <meta charset="UTF-8">
@@ -227,17 +227,19 @@ table.table-borderless>thead>tr>th, table.table-borderless>tbody>tr>td {
 				}
 			}
 			//CalendarEvents is an ArrayList of Event Objects that supposed to be in the calendar
+			
 			Calendar c = Calendar.getInstance(Locale.US);
 				c.set(Calendar.DAY_OF_WEEK, 1);
 				int dayOfWeek = c.get(Calendar.DAY_OF_WEEK);
 				ArrayList<String> times = new ArrayList<String>();
-				ArrayList<Date> thisWeek = new ArrayList<Date>();
+				ArrayList<String> thisWeek = new ArrayList<String>();
+				SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");
 				for (int i = 1; i < 8; i++) {
 					c.set(Calendar.DAY_OF_WEEK, i);
 					Date currentDate = c.getTime();
 					String[] timeComponents = c.getTime().toString().split(" ");
 					times.add(timeComponents[1] + " " + timeComponents[2]);
-					thisWeek.add(currentDate);
+					thisWeek.add(formatter.format(currentDate.getTime()));
 				}
 				pageContext.setAttribute("Sunday", times.get(0));
 				pageContext.setAttribute("Monday", times.get(1));
@@ -265,14 +267,49 @@ table.table-borderless>thead>tr>th, table.table-borderless>tbody>tr>td {
 					<tbody>
 						<tr>
 							<td>08:00</td>
-							<td class=" no-events" rowspan="1"></td>
-							<td class=" no-events" rowspan="1"></td>
-							<td class=" no-events" rowspan="1"></td>
-							<td class=" no-events" rowspan="1"></td>
-							<td class=" no-events" rowspan="1"></td>
-							<td class=" no-events" rowspan="1"></td>
-							<td class=" no-events" rowspan="1"></td>
-
+							<%
+								ArrayList<String> attributes1 = new ArrayList<String>();
+								int numEvents = 0;
+								for (Event e : CalendarEvents) {
+									if (e.getStartTime().equals("08:00")) {
+										if (thisWeek.contains(e.getDate())) {
+											attributes1.add(thisWeek.indexOf(e.getDate()) + "");
+											attributes1.add(e.getTitle());
+											attributes1.add(e.getDifference() + "");
+											numEvents += 1;
+										}
+									}
+								}
+							
+								if (attributes1.size() == 0) {
+									for (int i = 0; i < 7; i++) {
+										%>
+										<td class=" no-events" rowspan="1"></td>	
+								 <% }
+								} else {
+									for (int i = 0; i < 7; i++) {
+										if ((numEvents != 0) && (Integer.parseInt(attributes1.get(0)) == i)) { 
+											pageContext.setAttribute("title", attributes1.get(1));
+											pageContext.setAttribute("rowSpan", attributes1.get(2));
+											numEvents -= 1;
+											attributes1.remove(2);
+											attributes1.remove(1);
+											attributes1.remove(0);
+										%>
+											<td class=" has-events" rowspan="${rowSpan}">
+												<div class="row-fluid lecture" style="width: 99%; height: 100%;">
+													<span class="title">${title}</span>
+												</div>
+											</td>
+									<%	
+										} else {
+									%>
+										<td class=" no-events" rowspan="1"></td>			
+									<%
+										}
+									}
+								}	
+							%>
 						</tr>
 						<tr>
 							<td>08:30</td>
@@ -470,13 +507,44 @@ table.table-borderless>thead>tr>th, table.table-borderless>tbody>tr>td {
 						</tr>
 						<tr>
 							<td>18:00</td>
-							<td class=" no-events" rowspan="1"></td>
-							<td class=" no-events" rowspan="1"></td>
-							<td class=" no-events" rowspan="1"></td>
-							<td class=" no-events" rowspan="1"></td>
-							<td class=" no-events" rowspan="1"></td>
-							<td class=" no-events" rowspan="1"></td>
-							<td class=" no-events" rowspan="1"></td>
+							<%
+								ArrayList<String> attributes = new ArrayList<String>();
+								for (Event e : CalendarEvents) {
+									if (e.getStartTime().equals("18:00")) {
+										if (thisWeek.contains(e.getDate())) {
+											attributes.add(thisWeek.indexOf(e.getDate()) + "");
+											attributes.add(e.getTitle());
+											attributes.add(e.getDifference() + "");
+											break;
+										}
+									}
+								}
+								
+								if (attributes.size() == 0) {
+									for (int i = 0; i < 7; i++) {
+										%>
+										<td class=" no-events" rowspan="1"></td>	
+								 <% }
+								} else {
+									for (int i = 0; i < 7; i++) {
+										if (Integer.parseInt(attributes.get(0)) == i) { 
+											pageContext.setAttribute("title1", attributes.get(1));
+											pageContext.setAttribute("rowSpan1", Integer.parseInt(attributes.get(2)));
+										%>
+											<td class=" has-events" rowspan="${rowSpan1}">
+												<div class="row-fluid lecture" style="width: 99%; height: 100%;">
+													<span class="title">${title1}</span>
+												</div>
+											</td>
+									<%	
+										} else {
+									%>
+										<td class=" no-events" rowspan="1"></td>			
+									<%
+										}
+									}
+								}	
+							%>
 						</tr>
 						<tr>
 							<td>18:30</td>
