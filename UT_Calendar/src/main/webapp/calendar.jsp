@@ -168,7 +168,7 @@ table.table-borderless>thead>tr>th, table.table-borderless>tbody>tr>td {
 					</div>
 					<div class="panel-body">
 					</div>
-					<div align="center" style="margin-bottom: 20px;">
+					<div align="center" >
 					<div class="text-center">
 						<%
 							ArrayList<String> schedules = (ArrayList<String>) pageContext.getAttribute("schedules");
@@ -466,7 +466,7 @@ table.table-borderless>thead>tr>th, table.table-borderless>tbody>tr>td {
 							for (String item : toDoList) { 
 								pageContext.setAttribute("item", item); %>
 								<p  align="left" style="padding: 5px 5px">${item}
-								${s}<a href="/deleteschedule?id=${idString}&schedules=${s}" style="float: right; color:red">X</a></p>
+								${s}<a href="/deleteitem?id=${idString}&item=${item}" style="float: right; color:red">X</a></p>
 								
 						<% 		
 							}
