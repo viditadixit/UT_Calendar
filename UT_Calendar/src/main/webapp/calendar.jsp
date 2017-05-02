@@ -4,6 +4,8 @@
 <%@ page import ="java.util.ArrayList" %>
 <%@ page import="com.googlecode.objectify.*" %>
 <%@ page import="utcalendar.User" %>
+<%@ page import="utcalendar.Schedule" %>
+<%@ page import="utcalendar.Event" %>
 
 <head>
 <meta charset="UTF-8">
@@ -158,10 +160,13 @@ table.table-borderless>thead>tr>th, table.table-borderless>tbody>tr>td {
 			</ul>
 		</div>
 	</nav>
-
 	<div class="container-fluid">
+
 		<div class="row">
 			<div class="col-sm-2">
+		<%  
+		List<Long> scheduleIDList = new ArrayList<Long>();
+		%>
 				<div class="panel panel-default" align="left">
 					<div class="panel-heading" align="center">
 						<h3 class="panel-title">Schedules</h3>
@@ -171,8 +176,15 @@ table.table-borderless>thead>tr>th, table.table-borderless>tbody>tr>td {
 					<div align="center" style="margin-bottom: 20px;">
 					<div class="text-center">
 						<%
+							List<Schedule> scheduleList = ObjectifyService.ofy().load().type(Schedule.class).list();
 							ArrayList<String> schedules = (ArrayList<String>) pageContext.getAttribute("schedules");
 							for (String s : schedules) { 
+								for (Schedule e : scheduleList){
+									if(e.getTitle().equals(s)){
+										Long scheduleID = e.getID();
+										scheduleIDList.add(scheduleID);
+									}
+								}
 								pageContext.setAttribute("schedule", s); %>
 								<p>${schedule}</p>
 						<% 		
@@ -193,6 +205,27 @@ table.table-borderless>thead>tr>th, table.table-borderless>tbody>tr>td {
 					</div>
 				</div>
 			</div>
+			<%
+			
+			//get Events from datastore to add to calendar
+			ArrayList<Event> CalendarEvents = new ArrayList<Event>();
+			for(int i=0; i<scheduleIDList.size();i++){
+				Long id1 = scheduleIDList.get(i); 
+				pageContext.setAttribute("id1", id1);
+				//userSchedule = one of user's Schedules
+				Schedule userSchedule = ObjectifyService.ofy().load().type(Schedule.class).filter("id", id1).first().get();
+				List<Long> EventList = userSchedule.events;
+				for (int j=0; j<EventList.size();j++){
+					Long id2 = EventList.get(j);
+					Event userEvent = ObjectifyService.ofy().load().type(Event.class).filter("id", id2).first().get();
+					CalendarEvents.add(userEvent);
+				}
+			}
+			//CalendarEvents is an ArrayList of Event Objects that supposed to be in the calendar
+			
+			%>		
+			
+			
 			<div class="col-sm-8">
 				<table class="calendar table table-bordered">
 					<thead>

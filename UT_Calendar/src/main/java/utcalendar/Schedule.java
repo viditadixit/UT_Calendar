@@ -12,7 +12,6 @@ import com.googlecode.objectify.annotation.Parent;
 @Entity
 public class Schedule {
 
-	@Parent Key<Calendar> CalendarDatabase;
 	@Id Long id;
 	String title;
 	boolean access; //public = true, private = false
