@@ -8,7 +8,9 @@
 <%@ page import ="java.util.Locale" %>
 <%@ page import ="java.text.*" %>
 <%@ page import="utcalendar.User" %>
-<%@ page import="utcalendar.Week" %>
+<%@ page import="utcalendar.Schedule" %>
+<%@ page import="utcalendar.Event" %>
+
 
 <head>
 <meta charset="UTF-8">
@@ -163,10 +165,13 @@ table.table-borderless>thead>tr>th, table.table-borderless>tbody>tr>td {
 			</ul>
 		</div>
 	</nav>
-
 	<div class="container-fluid">
+
 		<div class="row">
 			<div class="col-sm-2">
+		<%  
+		List<Long> scheduleIDList = new ArrayList<Long>();
+		%>
 				<div class="panel panel-default" align="left">
 					<div class="panel-heading" align="center">
 						<h3 class="panel-title">Schedules</h3>
@@ -176,8 +181,15 @@ table.table-borderless>thead>tr>th, table.table-borderless>tbody>tr>td {
 					<div align="center" >
 					<div class="text-center">
 						<%
+							List<Schedule> scheduleList = ObjectifyService.ofy().load().type(Schedule.class).list();
 							ArrayList<String> schedules = (ArrayList<String>) pageContext.getAttribute("schedules");
 							for (String s : schedules) { 
+								for (Schedule e : scheduleList){
+									if(e.getTitle().equals(s)){
+										Long scheduleID = e.getID();
+										scheduleIDList.add(scheduleID);
+									}
+								}
 								pageContext.setAttribute("schedule", s); %>
 								<p style="margin: 0px 10px 10px;">${schedule}</p>
 						<% 		
@@ -192,12 +204,30 @@ table.table-borderless>thead>tr>th, table.table-borderless>tbody>tr>td {
 						background-repeat: repeat-x;border-color: #0044cc #0044cc #002a80;border-color: rgba(0, 0, 0, 0.1) rgba(0, 0, 0, 0.1) rgba(0, 0, 0, 0.25);
 						filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#ff0088cc', endColorstr='#ff0044cc', GradientType=0);
 						filter: progid:DXImageTransform.Microsoft.gradient(enabled=false) padding: 5px 5px; margin: 0px 0px 15px 0px"
-								onclick="location.href='addcalendar.jsp?id=${idString}'">Add/Delete</button>
+						onclick="location.href='addcalendar.jsp?id=${idString}'">Add/Delete</button>
 						</form>
 					</div>
 				</div>
 			</div>
-			<%	Calendar c = Calendar.getInstance(Locale.US);
+
+			<%
+			
+			//get Events from datastore to add to calendar
+			ArrayList<Event> CalendarEvents = new ArrayList<Event>();
+			for(int i=0; i<scheduleIDList.size();i++){
+				Long id1 = scheduleIDList.get(i); 
+				pageContext.setAttribute("id1", id1);
+				//userSchedule = one of user's Schedules
+				Schedule userSchedule = ObjectifyService.ofy().load().type(Schedule.class).filter("id", id1).first().get();
+				List<Long> EventList = userSchedule.events;
+				for (int j=0; j<EventList.size();j++){
+					Long id2 = EventList.get(j);
+					Event userEvent = ObjectifyService.ofy().load().type(Event.class).filter("id", id2).first().get();
+					CalendarEvents.add(userEvent);
+				}
+			}
+			//CalendarEvents is an ArrayList of Event Objects that supposed to be in the calendar
+			Calendar c = Calendar.getInstance(Locale.US);
 				c.set(Calendar.DAY_OF_WEEK, 1);
 				int dayOfWeek = c.get(Calendar.DAY_OF_WEEK);
 				ArrayList<String> times = new ArrayList<String>();
@@ -217,6 +247,7 @@ table.table-borderless>thead>tr>th, table.table-borderless>tbody>tr>td {
 				pageContext.setAttribute("Friday", times.get(5));
 				pageContext.setAttribute("Saturday", times.get(6));
 			%>
+
 			<div class="col-sm-8">
 				<table class="calendar table table-bordered">
 					<thead>
@@ -485,9 +516,6 @@ table.table-borderless>thead>tr>th, table.table-borderless>tbody>tr>td {
 					<div class="panel-heading">
 						<h3 class="panel-title" align="center">To-Do List</h3>
 					</div>
-					<div class="panel-body">
-					</div>
-					<div align="center" >
 					<div class="text-center">
 						<%
 							ArrayList<String> toDoList = (ArrayList<String>) pageContext.getAttribute("toDoList");
@@ -495,6 +523,7 @@ table.table-borderless>thead>tr>th, table.table-borderless>tbody>tr>td {
 								pageContext.setAttribute("item", item); %>
 								<p  align="left" style="margin: 0px 10px 10px;">${item}
 								${s}<a href="/deleteitem?id=${idString}&item=${item}" style="float: right; color:red">X</a></p>
+								
 						<% 		
 							}
 						%>
@@ -505,7 +534,7 @@ table.table-borderless>thead>tr>th, table.table-borderless>tbody>tr>td {
 						<input type="text" name="item" id="item" class="input-group" placeHolder="New Item">
 					</div>
 					<div class="form-group">
-						<input type="submit" class="btn btn-sm btn-default" value="Add" style ="color: #ffffff;text-shadow: 0 -1px 0 rgba(0, 0, 0, 0.25);
+						<input type="submit" class="form-control" value="Add" style ="color: #ffffff;text-shadow: 0 -1px 0 rgba(0, 0, 0, 0.25);
 						background-color: #006dcc;*background-color: #0044cc;background-image: -moz-linear-gradient(top, #0088cc, #0044cc);
 						background-image: -webkit-gradient(linear, 0 0, 0 100%, from(#0088cc), to(#0044cc));background-image: -webkit-linear-gradient(top, #0088cc, #0044cc);
 						background-image: -o-linear-gradient(top, #0088cc, #0044cc);background-image: linear-gradient(to bottom, #0088cc, #0044cc);
