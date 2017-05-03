@@ -13,6 +13,7 @@ public class Event implements Comparable<Event>{
 	@Id Long id;
 	String title;
 	String date, startTime, endTime;
+	String color;
 	
 	public Event(){
 	}
@@ -22,6 +23,7 @@ public class Event implements Comparable<Event>{
 		this.date = date;
 		this.startTime = start;
 		this.endTime = end;
+		this.color = "blue";
 	}
 	
 	public String getTitle(){
@@ -75,5 +77,13 @@ public class Event implements Comparable<Event>{
 		else{
 			return this.getDate().compareTo(other.getDate());
 		}
+	}
+	
+	public String getColor(){
+		return color;
+	}
+	
+	public void setColor(String color){
+		this.color = color;
 	}
 }
