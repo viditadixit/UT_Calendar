@@ -18,6 +18,7 @@ public class Schedule {
 	Long authorId;
 	private ArrayList<String> studentList;
 	public ArrayList<Long> events;
+	String color;
 	
 	public Schedule(){
 		this.studentList=new ArrayList<String>();
@@ -28,6 +29,7 @@ public class Schedule {
 		this.title = title;
 		this.studentList=new ArrayList<String>();
 		this.events = events;
+		this.color = "blue";
 	}
 	
 	public String getTitle() {
@@ -74,4 +76,11 @@ public class Schedule {
 		this.events.remove(event);
 	}
 
+	public String getColor(){
+		return color;
+	}
+	
+	public void setColor(String color){
+		this.color = color;
+	}
 }
