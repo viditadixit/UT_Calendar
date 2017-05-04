@@ -193,7 +193,6 @@ table.table-borderless>thead>tr>th, table.table-borderless>tbody>tr>td {
 						colors.add("red");
 						colors.add("blue");
 						colors.add("orange");
-						
 						int x = 0;
 							List<Schedule> scheduleList = ObjectifyService.ofy().load().type(Schedule.class).list();
 							ArrayList<String> schedules = (ArrayList<String>) pageContext.getAttribute("schedules");
@@ -203,17 +202,15 @@ table.table-borderless>thead>tr>th, table.table-borderless>tbody>tr>td {
 									if(e.getTitle().equals(s)){
 										Long scheduleID = e.getID();
 										scheduleIDList.add(scheduleID);
-										e.setColor(colors.get(x));
-										pageContext.setAttribute("color1", colors.get(x));
+		//								e.setColor(colors.get(x));
 									}
 								}
 								pageContext.setAttribute("schedule", s); %>
-								<p style="margin: 5px 10px 10px 10px;color:${color1}">${schedule}</p>						
-								
+								<p align = "left" style="margin: 5px 10px 10px 10px;">${schedule}</p>				
 						<% 		
-								x++;							
+			/*					x++;							
 								if(x>5)
-									x = x%6;
+									x = x%6;*/
 							}
 						%>
 					</div>
@@ -242,15 +239,15 @@ table.table-borderless>thead>tr>th, table.table-borderless>tbody>tr>td {
 				//userSchedule = one of user's Schedules
 				Schedule userSchedule = ObjectifyService.ofy().load().type(Schedule.class).filter("id", id1).first().get();
 				List<Long> EventList = userSchedule.events;
-		/*		int y = i;
+				int y = i;
 				if(i>5)
 					y = y%6;
-				String thisColor = colors.get(y);	*/	
+				String thisColor = colors.get(y);		
 				for (int j=0; j<EventList.size();j++){
 					Long id2 = EventList.get(j);
 					Event userEvent = ObjectifyService.ofy().load().type(Event.class).filter("id", id2).first().get();
-					userEvent.setColor(userSchedule.getColor());
-				//	userEvent.setColor(thisColor);
+				//	userEvent.setColor(userSchedule.getColor());
+					userEvent.setColor(thisColor);
 					CalendarEvents.add(userEvent);				
 				}
 			}
