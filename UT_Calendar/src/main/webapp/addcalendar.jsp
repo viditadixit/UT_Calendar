@@ -139,46 +139,6 @@ border-box
 			<%
 			}
 			%>
-			<tr>
-				<td>Course Schedules</td>
-				<td>Katelyn Ge</td>
-				<td><a href="javascript:void(0)" onclick="addSchedule(1,'Course Schedules', 'Test')">Add</a> </td>
-			</tr>
-			<tr>
-				<td>WECE Social Calendar</td>
-				<td>Vidita Dixit</td>
-				<td><a href="javascript:void(0)" onclick="addSchedule(1,'WECE Social Calendar')">Add</a> </td>
-			</tr>
-			<tr>
-				<td>Theta Tau Events</td>
-				<td>Kirtana Moorthy</td>
-				<td><a href="javascript:void(0)" onclick="addSchedule(1,'Theta Tau Events')">Add</a> </td>
-			</tr>
-			<tr>
-				<td>SEEK Calendar</td>
-				<td>Rebecca Jiang</td>
-				<td><a href="javascript:void(0)" onclick="addSchedule(1,'SEEK Calendar')">Add</a> </td>
-			</tr>
-			<tr>
-				<td>Office Fan Club</td>
-				<td>Katelyn Ge</td>
-				<td><a href="javascript:void(0)" onclick="addSchedule(1,'Office Fan Club')">Add</a> </td>
-			</tr>
-			<tr>
-				<td>Brooklyn 99 Fan Club</td>
-				<td>Kirtana Moorthy</td>
-				<td><a href="javascript:void(0)" onclick="addSchedule(1,'Brooklyn 99 Fan Club')">Add</a> </td>
-			</tr>
-			<tr>
-				<td>Liars Club</td>
-				<td>Gunalan Karun</td>
-				<td><a href="javascript:void(0)" onclick="addSchedule(1,'Liars Club')">Add</a> </td>
-			</tr>
-			<tr>
-				<td>Is There A Quiz Today</td>
-				<td>Irfan Hasan</td>
-				<td><a href="javascript:void(0)" onclick="addSchedule(1,'Is There A Quiz Today')">Add</a> </td>
-			</tr>
 		</table>
 
 		<div id="mySchedule">
