@@ -79,7 +79,7 @@ table.calendar>tbody>tr>td.has-events {
 }
 
 table.calendar>tbody>tr>td.has-events>div {
-	
+	background-color: #08C;
 	border-left: 1px solid white;
 }
 
@@ -218,13 +218,6 @@ table.table-borderless>thead>tr>th, table.table-borderless>tbody>tr>td {
 			<%
 			
 			//get Events from datastore to add to calendar
-			ArrayList<String> colors = new ArrayList<String>();
-			colors.add("green");
-			colors.add("purple");
-			colors.add("pink");
-			colors.add("red");
-			colors.add("blue");
-			colors.add("orange");
 			ArrayList<Event> CalendarEvents = new ArrayList<Event>();
 			for(int i=0; i<scheduleIDList.size();i++){
 				Long id1 = scheduleIDList.get(i); 
@@ -232,15 +225,11 @@ table.table-borderless>thead>tr>th, table.table-borderless>tbody>tr>td {
 				//userSchedule = one of user's Schedules
 				Schedule userSchedule = ObjectifyService.ofy().load().type(Schedule.class).filter("id", id1).first().get();
 				List<Long> EventList = userSchedule.events;
-				int x = i;
-				if(i>5)
-					x = x%6;
-				String thisColor = colors.get(x);		
 				for (int j=0; j<EventList.size();j++){
 					Long id2 = EventList.get(j);
 					Event userEvent = ObjectifyService.ofy().load().type(Event.class).filter("id", id2).first().get();
-					userEvent.setColor(thisColor);
-					CalendarEvents.add(userEvent);				
+					CalendarEvents.add(userEvent);
+					
 				}
 			}
 			//CalendarEvents is an ArrayList of Event Objects that supposed to be in the calendar
@@ -294,7 +283,6 @@ table.table-borderless>thead>tr>th, table.table-borderless>tbody>tr>td {
 											attributes1.add(thisWeek.indexOf(e.getDate()) + "");
 											attributes1.add(e.getTitle());
 											attributes1.add(e.getDifference() + "");
-											attributes1.add(e.getColor());
 											numEvents += 1;
 											
 										}
@@ -312,20 +300,17 @@ table.table-borderless>thead>tr>th, table.table-borderless>tbody>tr>td {
 										if ((numEvents != 0) && (Integer.parseInt(attributes1.get(0)) == i)) { 
 											pageContext.setAttribute("title", attributes1.get(1));
 											pageContext.setAttribute("rowSpan", attributes1.get(2));
-								//			pageContext.setAttribute("color", colors.get(0));
-											pageContext.setAttribute("color", attributes1.get(3));
 											numEvents -= 1;
 											for(int k = 0; k < Integer.parseInt(attributes1.get(2)); k++){
 												numEmptyCells[k] = numEmptyCells[k] -1;
 											}
-											attributes1.remove(3);
 											attributes1.remove(2);
 											attributes1.remove(1);
 											attributes1.remove(0);
 											
 											
 										%>
-											<td class=" has-events" rowspan="${rowSpan}" style = "background-color:${color}">
+											<td class=" has-events" rowspan="${rowSpan}">
 												<div class="row-fluid lecture" style="width: 99%; height: 100%;">
 													<span class="title">${title}</span>
 												</div>

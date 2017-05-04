@@ -73,5 +73,4 @@ public class Schedule {
 	public void deleteEvent(Long event) {
 		this.events.remove(event);
 	}
-
 }
