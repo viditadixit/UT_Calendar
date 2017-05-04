@@ -299,7 +299,6 @@ table.table-borderless>thead>tr>th, table.table-borderless>tbody>tr>td {
 							<%
 								ArrayList<String> attributes1 = new ArrayList<String>();
 								int numEvents = 0;
-								int total1 = 0;
 								for (Event e : CalendarEvents) {
 									if (e.getStartTime().equals("08:00")) {
 										if (thisWeek.contains(e.getDate())) {
@@ -308,7 +307,7 @@ table.table-borderless>thead>tr>th, table.table-borderless>tbody>tr>td {
 											attributes1.add(e.getDifference() + "");
 											attributes1.add(e.getColor());
 											numEvents += 1;
-											total1++;
+											
 										}
 									}
 								}
@@ -326,7 +325,7 @@ table.table-borderless>thead>tr>th, table.table-borderless>tbody>tr>td {
 											pageContext.setAttribute("rowSpan", attributes1.get(2));
 											pageContext.setAttribute("color", attributes1.get(3));
 											numEvents -= 1;
-											for(int k = 1; k < Integer.parseInt(attributes1.get(2)); k++){
+											for(int k = 0; k < Integer.parseInt(attributes1.get(2)); k++){
 												numEmptyCells[k] = numEmptyCells[k] -1;
 											}
 											attributes1.remove(3);
@@ -342,7 +341,7 @@ table.table-borderless>thead>tr>th, table.table-borderless>tbody>tr>td {
 												</div>
 											</td>
 									<%	
-										} else if(numEmptyCells[0]-total1>0){
+										} else if(numEmptyCells[0]>0){
 									%>
 										<td class=" no-events" rowspan="1"></td>			
 									<%
@@ -358,7 +357,6 @@ table.table-borderless>thead>tr>th, table.table-borderless>tbody>tr>td {
 							<%
 								ArrayList<String> attributes2 = new ArrayList<String>();
 								int numEvents2 = 0;
-								int total2 = 0;
 								for (Event e : CalendarEvents) {
 									if (e.getStartTime().equals("08:30")) {
 										if (thisWeek.contains(e.getDate())) {
@@ -367,7 +365,7 @@ table.table-borderless>thead>tr>th, table.table-borderless>tbody>tr>td {
 											attributes2.add(e.getDifference() + "");
 											attributes2.add(e.getColor());
 											numEvents2 += 1;
-											total2++;
+											
 										}
 									}
 								}
@@ -380,12 +378,12 @@ table.table-borderless>thead>tr>th, table.table-borderless>tbody>tr>td {
 								} else {
 									int counter = 0;
 									for (int i = 0; i < 7; i++) { 
-										if ((numEvents2 != 0) && (Integer.parseInt(attributes2.get(0)) == i)) { 
+										if ((numEvents != 0) && (Integer.parseInt(attributes2.get(0)) == i)) { 
 											pageContext.setAttribute("title2", attributes2.get(1));
 											pageContext.setAttribute("rowSpan2", attributes2.get(2));
 											pageContext.setAttribute("color2", attributes2.get(3));
 											numEvents -= 1;
-											for(int k = 1; k < Integer.parseInt(attributes2.get(2)); k++){
+											for(int k = 0; k < Integer.parseInt(attributes2.get(2)); k++){
 												numEmptyCells[k+1] = numEmptyCells[k+1] -1;
 											}
 											attributes1.remove(3);
@@ -401,7 +399,7 @@ table.table-borderless>thead>tr>th, table.table-borderless>tbody>tr>td {
 												</div>
 											</td>
 									<%	
-										} else if(numEmptyCells[1]-total2>0) {
+										} else if(numEmptyCells[1]>0) {
 									%>
 										<td class=" no-events" rowspan="1"></td>			
 									<%
@@ -416,7 +414,6 @@ table.table-borderless>thead>tr>th, table.table-borderless>tbody>tr>td {
 								<%
 								ArrayList<String> attributes3 = new ArrayList<String>();
 								int numEvents3 = 0;
-								int total3 = 0;
 								for (Event e : CalendarEvents) {
 									if (e.getStartTime().equals("09:00")) {
 										if (thisWeek.contains(e.getDate())) {
@@ -425,7 +422,7 @@ table.table-borderless>thead>tr>th, table.table-borderless>tbody>tr>td {
 											attributes3.add(e.getDifference() + "");
 											attributes3.add(e.getColor());
 											numEvents3 += 1;
-											total3++;
+											
 										}
 									}
 								}
@@ -443,7 +440,7 @@ table.table-borderless>thead>tr>th, table.table-borderless>tbody>tr>td {
 											pageContext.setAttribute("rowSpan3", attributes3.get(2));
 											pageContext.setAttribute("color3", attributes3.get(3));
 											numEvents3 -= 1;
-											for(int k = 1; k < Integer.parseInt(attributes3.get(2)); k++){
+											for(int k = 0; k < Integer.parseInt(attributes3.get(2)); k++){
 												numEmptyCells[k+2] = numEmptyCells[k+2] -1;
 											}
 											attributes3.remove(3);
@@ -459,7 +456,7 @@ table.table-borderless>thead>tr>th, table.table-borderless>tbody>tr>td {
 												</div>
 											</td>
 									<%	
-										} else if(numEmptyCells[2]-total3>0){
+										} else if(numEmptyCells[2]>0){
 									%>
 										<td class=" no-events" rowspan="1"></td>
 									<%
@@ -475,7 +472,6 @@ table.table-borderless>thead>tr>th, table.table-borderless>tbody>tr>td {
 									<%
 								ArrayList<String> attributes4 = new ArrayList<String>();
 								int numEvents4 = 0;
-								int total4 = 0;
 								for (Event e : CalendarEvents) {
 									if (e.getStartTime().equals("09:30")) {
 										if (thisWeek.contains(e.getDate())) {
@@ -484,7 +480,7 @@ table.table-borderless>thead>tr>th, table.table-borderless>tbody>tr>td {
 											attributes4.add(e.getDifference() + "");
 											attributes4.add(e.getColor());
 											numEvents4 += 1;
-											total4++;
+											
 										}
 									}
 								}
@@ -502,7 +498,7 @@ table.table-borderless>thead>tr>th, table.table-borderless>tbody>tr>td {
 											pageContext.setAttribute("rowSpan4", attributes4.get(2));
 											pageContext.setAttribute("color4", attributes4.get(3));
 											numEvents4 -= 1;
-											for(int k = 1; k < Integer.parseInt(attributes4.get(2)); k++){
+											for(int k = 0; k < Integer.parseInt(attributes4.get(2)); k++){
 												numEmptyCells[k+3] = numEmptyCells[k+3] -1;
 											}
 											attributes4.remove(3);
@@ -518,7 +514,7 @@ table.table-borderless>thead>tr>th, table.table-borderless>tbody>tr>td {
 												</div>
 											</td>
 									<%	
-										} else if(numEmptyCells[3]-total4>0) {
+										} else if(numEmptyCells[3]>0) {
 									%>
 										<td class=" no-events" rowspan="1"></td>			
 									<%
@@ -534,7 +530,6 @@ table.table-borderless>thead>tr>th, table.table-borderless>tbody>tr>td {
 								<%
 								ArrayList<String> attributes5 = new ArrayList<String>();
 								int numEvents5 = 0;
-								int total5 = 0;
 								for (Event e : CalendarEvents) {
 									if (e.getStartTime().equals("10:00")) {
 										if (thisWeek.contains(e.getDate())) {
@@ -543,7 +538,7 @@ table.table-borderless>thead>tr>th, table.table-borderless>tbody>tr>td {
 											attributes5.add(e.getDifference() + "");
 											attributes5.add(e.getColor());
 											numEvents5 += 1;
-											total5++;
+											
 										}
 									}
 								}
@@ -561,7 +556,7 @@ table.table-borderless>thead>tr>th, table.table-borderless>tbody>tr>td {
 											pageContext.setAttribute("rowSpan5", attributes5.get(2));
 											pageContext.setAttribute("color5", attributes5.get(3));
 											numEvents5 -= 1;
-											for(int k = 1; k < Integer.parseInt(attributes5.get(2)); k++){
+											for(int k = 0; k < Integer.parseInt(attributes5.get(2)); k++){
 												numEmptyCells[k+4] = numEmptyCells[k+4] -1;
 											}
 											attributes5.remove(3);
@@ -577,13 +572,11 @@ table.table-borderless>thead>tr>th, table.table-borderless>tbody>tr>td {
 												</div>
 											</td>
 									<%	
-										} else if(numEmptyCells[4]-total5>0){
-											pageContext.setAttribute("pls", numEmptyCells[4]);
-											pageContext.setAttribute("num", numEvents5);
+										} else if(numEmptyCells[4]>0){
 									%>
-										<td class=" no-events" rowspan="1">${pls} ${num }</td>			
+										<td class=" no-events" rowspan="1"></td>			
 									<%
-											numEmptyCells[4] = numEmptyCells[4] - 1;
+									numEmptyCells[4] = numEmptyCells[4] - 1;
 										}
 									}
 								}	
@@ -594,7 +587,6 @@ table.table-borderless>thead>tr>th, table.table-borderless>tbody>tr>td {
 								<%
 								ArrayList<String> attributes6 = new ArrayList<String>();
 								int numEvents6 = 0;
-								int total6 = 0;
 								for (Event e : CalendarEvents) {
 									if (e.getStartTime().equals("10:30")) {
 										if (thisWeek.contains(e.getDate())) {
@@ -603,7 +595,7 @@ table.table-borderless>thead>tr>th, table.table-borderless>tbody>tr>td {
 											attributes6.add(e.getDifference() + "");
 											attributes6.add(e.getColor());
 											numEvents6 += 1;
-											total6++;
+											
 										}
 									}
 								}
@@ -621,7 +613,7 @@ table.table-borderless>thead>tr>th, table.table-borderless>tbody>tr>td {
 											pageContext.setAttribute("rowSpan6", attributes6.get(2));
 											pageContext.setAttribute("color6", attributes6.get(3));
 											numEvents6 -= 1;
-											for(int k = 1; k < Integer.parseInt(attributes6.get(2)); k++){
+											for(int k = 0; k < Integer.parseInt(attributes6.get(2)); k++){
 												numEmptyCells[k+5] = numEmptyCells[k+5] -1;
 											}
 											attributes6.remove(3);
@@ -637,7 +629,7 @@ table.table-borderless>thead>tr>th, table.table-borderless>tbody>tr>td {
 												</div>
 											</td>
 									<%	
-										} else if(numEmptyCells[5]-total6>0){
+										} else if(numEmptyCells[5]>0){
 									%>
 										<td class=" no-events" rowspan="1"></td>			
 									<%
@@ -652,7 +644,6 @@ table.table-borderless>thead>tr>th, table.table-borderless>tbody>tr>td {
 								<%
 								ArrayList<String> attributes7 = new ArrayList<String>();
 								int numEvents7 = 0;
-								int total7 = 0;
 								for (Event e : CalendarEvents) {
 									if (e.getStartTime().equals("11:00")) {
 										if (thisWeek.contains(e.getDate())) {
@@ -661,7 +652,7 @@ table.table-borderless>thead>tr>th, table.table-borderless>tbody>tr>td {
 											attributes7.add(e.getDifference() + "");
 											attributes7.add(e.getColor());
 											numEvents7 += 1;
-											total7++;
+											
 										}
 									}
 								}
@@ -679,7 +670,7 @@ table.table-borderless>thead>tr>th, table.table-borderless>tbody>tr>td {
 											pageContext.setAttribute("rowSpan7", attributes7.get(2));
 											pageContext.setAttribute("color7", attributes7.get(3));
 											numEvents7 -= 1;
-											for(int k = 1; k < Integer.parseInt(attributes7.get(2)); k++){
+											for(int k = 0; k < Integer.parseInt(attributes7.get(2)); k++){
 												numEmptyCells[k+6] = numEmptyCells[k+6] -1;
 											}
 											attributes7.remove(3);
@@ -695,7 +686,7 @@ table.table-borderless>thead>tr>th, table.table-borderless>tbody>tr>td {
 												</div>
 											</td>
 									<%	
-										} else if(numEmptyCells[6]-total7>0){
+										} else if(numEmptyCells[6]>0){
 									%>
 										<td class=" no-events" rowspan="1"></td>			
 									<%
@@ -710,7 +701,6 @@ table.table-borderless>thead>tr>th, table.table-borderless>tbody>tr>td {
 								<%
 								ArrayList<String> attributes8 = new ArrayList<String>();
 								int numEvents8 = 0;
-								int total8 = 0;
 								for (Event e : CalendarEvents) {
 									if (e.getStartTime().equals("11:30")) {
 										if (thisWeek.contains(e.getDate())) {
@@ -719,7 +709,7 @@ table.table-borderless>thead>tr>th, table.table-borderless>tbody>tr>td {
 											attributes8.add(e.getDifference() + "");
 											attributes8.add(e.getColor());
 											numEvents8 += 1;
-											total8++;
+											
 										}
 									}
 								}
@@ -737,7 +727,7 @@ table.table-borderless>thead>tr>th, table.table-borderless>tbody>tr>td {
 											pageContext.setAttribute("rowSpan8", attributes8.get(2));
 											pageContext.setAttribute("color8", attributes8.get(3));
 											numEvents8 -= 1;
-											for(int k = 1; k < Integer.parseInt(attributes8.get(2)); k++){
+											for(int k = 0; k < Integer.parseInt(attributes8.get(2)); k++){
 												numEmptyCells[k+7] = numEmptyCells[k+7] -1;
 											}
 											attributes8.remove(3);
@@ -753,7 +743,7 @@ table.table-borderless>thead>tr>th, table.table-borderless>tbody>tr>td {
 												</div>
 											</td>
 									<%	
-										} else if(numEmptyCells[7]-total8>0){
+										} else if(numEmptyCells[7]>0){
 									%>
 										<td class=" no-events" rowspan="1"></td>			
 									<%
@@ -768,7 +758,6 @@ table.table-borderless>thead>tr>th, table.table-borderless>tbody>tr>td {
 								<%
 								ArrayList<String> attributes9 = new ArrayList<String>();
 								int numEvents9 = 0;
-								int total9 = 0;
 								for (Event e : CalendarEvents) {
 									if (e.getStartTime().equals("12:00")) {
 										if (thisWeek.contains(e.getDate())) {
@@ -777,7 +766,7 @@ table.table-borderless>thead>tr>th, table.table-borderless>tbody>tr>td {
 											attributes9.add(e.getDifference() + "");
 											attributes9.add(e.getColor());
 											numEvents9 += 1;
-											total9++;
+											
 										}
 									}
 								}
@@ -795,7 +784,7 @@ table.table-borderless>thead>tr>th, table.table-borderless>tbody>tr>td {
 											pageContext.setAttribute("rowSpan9", attributes9.get(2));
 											pageContext.setAttribute("color9", attributes9.get(3));
 											numEvents9 -= 1;
-											for(int k = 1; k < Integer.parseInt(attributes9.get(2)); k++){
+											for(int k = 0; k < Integer.parseInt(attributes9.get(2)); k++){
 												numEmptyCells[k+8] = numEmptyCells[k+8] -1;
 											}
 											attributes9.remove(3);
@@ -811,7 +800,7 @@ table.table-borderless>thead>tr>th, table.table-borderless>tbody>tr>td {
 												</div>
 											</td>
 									<%	
-										} else if(numEmptyCells[8]-total9>0) {
+										} else if(numEmptyCells[8]>0) {
 									%>
 										<td class=" no-events" rowspan="1"></td>			
 									<%
