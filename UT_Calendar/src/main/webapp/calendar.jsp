@@ -79,7 +79,6 @@ table.calendar>tbody>tr>td.has-events {
 }
 
 table.calendar>tbody>tr>td.has-events>div {
-	background-color: #08C;
 	border-left: 1px solid white;
 }
 
@@ -121,6 +120,12 @@ table.table-borderless>thead>tr>th, table.table-borderless>tbody>tr>td {
 .table tbody tr.hover td, .table tbody tr.hover th {
 	background-color: whiteSmoke;
 }
+
+type="text/css">
+    .green {
+        background-color:green;
+    }
+    
 </style>
 </head>
 <%
@@ -171,7 +176,20 @@ table.table-borderless>thead>tr>th, table.table-borderless>tbody>tr>td {
 			<div class="col-sm-2">
 		<%  
 		List<Long> scheduleIDList = new ArrayList<Long>();
+		
+		
+		//get Events from datastore to add to calendar
+		ArrayList<String> colors = new ArrayList<String>();
+		colors.add("green");
+		colors.add("purple");
+		colors.add("pink");
+		colors.add("red");
+		colors.add("blue");
+		colors.add("orange");
+		
+		//CalendarEvents is an ArrayList of Event Objects that supposed to be in the calendar
 		%>
+
 				<div class="panel panel-default" align="left">
 					<div class="panel-heading" align="center">
 						<h3 class="panel-title">Schedules</h3>
@@ -181,6 +199,7 @@ table.table-borderless>thead>tr>th, table.table-borderless>tbody>tr>td {
 					<div align="center" >
 					<div class="text-center">
 						<%
+							int x = 0;
 							List<Schedule> scheduleList = ObjectifyService.ofy().load().type(Schedule.class).list();
 							ArrayList<String> schedules = (ArrayList<String>) pageContext.getAttribute("schedules");
 							for (String s : schedules) { 
@@ -188,11 +207,17 @@ table.table-borderless>thead>tr>th, table.table-borderless>tbody>tr>td {
 									if(e.getTitle().equals(s)){
 										Long scheduleID = e.getID();
 										scheduleIDList.add(scheduleID);
+										e.setColor(colors.get(x));
 									}
 								}
-								pageContext.setAttribute("schedule", s); %>
-								<p style="margin: 5px 10px 10px 10px;">${schedule}</p>
+								pageContext.setAttribute("schedule", s); 
+								pageContext.setAttribute("color1", colors.get(x)); %>
+								<p style="margin: 5px 10px 10px 10px; color:${color1}">${schedule}</p>
 						<% 		
+							x += 1;
+							if (x > 5) {
+								x = x%6;
+							}
 							}
 						%>
 					</div>
@@ -209,26 +234,23 @@ table.table-borderless>thead>tr>th, table.table-borderless>tbody>tr>td {
 					</div>
 				</div>
 			</div>
-
-			<%
 			
-			//get Events from datastore to add to calendar
-			ArrayList<Event> CalendarEvents = new ArrayList<Event>();
-			for(int i=0; i<scheduleIDList.size();i++){
-				Long id1 = scheduleIDList.get(i); 
-				pageContext.setAttribute("id1", id1);
-				//userSchedule = one of user's Schedules
-				Schedule userSchedule = ObjectifyService.ofy().load().type(Schedule.class).filter("id", id1).first().get();
-				List<Long> EventList = userSchedule.events;
-				for (int j=0; j<EventList.size();j++){
-					Long id2 = EventList.get(j);
-					Event userEvent = ObjectifyService.ofy().load().type(Event.class).filter("id", id2).first().get();
-					CalendarEvents.add(userEvent);
+			<% 
+				ArrayList<Event> CalendarEvents = new ArrayList<Event>();
+				for(int i=0; i<scheduleIDList.size();i++){
+					Long id1 = scheduleIDList.get(i); 
+					pageContext.setAttribute("id1", id1);
+					//userSchedule = one of user's Schedules
+					Schedule userSchedule = ObjectifyService.ofy().load().type(Schedule.class).filter("id", id1).first().get();
+					List<Long> EventList = userSchedule.events;
+					for (int j=0; j<EventList.size();j++){
+						Long id2 = EventList.get(j);
+						Event userEvent = ObjectifyService.ofy().load().type(Event.class).filter("id", id2).first().get();
+						userEvent.setColor(userSchedule.getColor());
+						CalendarEvents.add(userEvent);
+					}
 				}
-			}
-			//CalendarEvents is an ArrayList of Event Objects that supposed to be in the calendar
-			
-			Calendar c = Calendar.getInstance(Locale.US);
+				Calendar c = Calendar.getInstance(Locale.US);
 				c.set(Calendar.DAY_OF_WEEK, 1);
 				int dayOfWeek = c.get(Calendar.DAY_OF_WEEK);
 				ArrayList<String> times = new ArrayList<String>();
@@ -248,6 +270,27 @@ table.table-borderless>thead>tr>th, table.table-borderless>tbody>tr>td {
 				pageContext.setAttribute("Thursday", times.get(4));
 				pageContext.setAttribute("Friday", times.get(5));
 				pageContext.setAttribute("Saturday", times.get(6));
+				
+				ArrayList<Event> calendar = new ArrayList<Event>(168);
+				ArrayList<Boolean> displayTitle = new ArrayList<Boolean>(168);
+				for (int i = 0; i < 168; i++) {
+					calendar.add(new Event());
+					displayTitle.add(false);
+				}
+				
+				int index = 0;
+				for (Event e : CalendarEvents) {
+					if (thisWeek.contains(e.getDate())) {
+						for (int i = 0; i < e.getDifference(); i++) {
+							if (calendar.get((e.getIntStart()+i)*7 + thisWeek.indexOf(e.getDate())).getTitle().equals("")) {
+								if (i == 0) {
+									displayTitle.set((e.getIntStart()+i)*7 + thisWeek.indexOf(e.getDate()), true);
+								}
+								calendar.set((e.getIntStart()+i)*7 + thisWeek.indexOf(e.getDate()), e);
+							}
+						}
+					}
+				}
 			%>
 
 			<div class="col-sm-8">
@@ -265,317 +308,45 @@ table.table-borderless>thead>tr>th, table.table-borderless>tbody>tr>td {
 						</tr>
 					</thead>
 					<tbody>
-						<tr>
-							<td>08:00</td>
-							<%
-								ArrayList<String> attributes1 = new ArrayList<String>();
-								int numEvents = 0;
-								for (Event e : CalendarEvents) {
-									if (e.getStartTime().equals("08:00")) {
-										if (thisWeek.contains(e.getDate())) {
-											attributes1.add(thisWeek.indexOf(e.getDate()) + "");
-											attributes1.add(e.getTitle());
-											attributes1.add(e.getDifference() + "");
-											numEvents += 1;
-										}
-									}
-								}
-							
-								if (attributes1.size() == 0) {
-									for (int i = 0; i < 7; i++) {
-										%>
-										<td class=" no-events" rowspan="1"></td>	
-								 <% }
+						<%
+							int increment = 0;
+							for (int j = 0; j < 24; j++) {
+								String time = "";
+								if (j < 10) {
+									time = "0" + j + ":00";
 								} else {
-									for (int i = 0; i < 7; i++) {
-										if ((numEvents != 0) && (Integer.parseInt(attributes1.get(0)) == i)) { 
-											pageContext.setAttribute("title", attributes1.get(1));
-											pageContext.setAttribute("rowSpan", attributes1.get(2));
-											numEvents -= 1;
-											attributes1.remove(2);
-											attributes1.remove(1);
-											attributes1.remove(0);
-										%>
-											<td class=" has-events" rowspan="${rowSpan}">
-												<div class="row-fluid lecture" style="width: 99%; height: 100%;">
-													<span class="title">${title}</span>
-												</div>
-											</td>
-									<%	
-										} else {
-									%>
-										<td class=" no-events" rowspan="1"></td>			
-									<%
-										}
-									}
-								}	
-							%>
-						</tr>
-						<tr>
-							<td>08:30</td>
-							<td class=" no-events" rowspan="1"></td>
-							<td class=" no-events" rowspan="1"></td>
-							<td class=" no-events" rowspan="1"></td>
-							<td class=" no-events" rowspan="1"></td>
-							<td class=" no-events" rowspan="1"></td>
-							<td class=" no-events" rowspan="1"></td>
-							<td class=" no-events" rowspan="1"></td>
-						</tr>
-						<tr>
-							<td>09:00</td>
-							<td class=" no-events" rowspan="1"></td>
-							<td class=" no-events" rowspan="1"></td>
-							<td class=" no-events" rowspan="1"></td>
-							<td class=" no-events" rowspan="1"></td>
-							<td class=" no-events" rowspan="1"></td>
-							<td class=" no-events" rowspan="1"></td>
-							<td class=" no-events" rowspan="1"></td>
-
-						</tr>
-						<tr>
-							<td>09:30</td>
-							<td class=" no-events" rowspan="1"></td>
-							<td class=" no-events" rowspan="1"></td>
-							<td class=" no-events" rowspan="1"></td>
-							<td class=" no-events" rowspan="1"></td>
-							<td class=" no-events" rowspan="1"></td>
-							<td class=" no-events" rowspan="1"></td>
-							<td class=" no-events" rowspan="1"></td>
-						</tr>
-						<tr>
-							<td>10:00</td>
-							<td class=" no-events" rowspan="1"></td>
-							<td class=" no-events" rowspan="1"></td>
-							<td class=" no-events" rowspan="1"></td>
-							<td class=" no-events" rowspan="1"></td>
-							<td class=" no-events" rowspan="1"></td>
-							<td class=" no-events" rowspan="1"></td>
-							<td class=" no-events" rowspan="1"></td>
-						</tr>
-						<tr>
-							<td>10:30</td>
-							<td class=" no-events" rowspan="1"></td>
-							<td class=" no-events" rowspan="1"></td>
-							<td class=" no-events" rowspan="1"></td>
-							<td class=" no-events" rowspan="1"></td>
-							<td class=" no-events" rowspan="1"></td>
-							<td class=" no-events" rowspan="1"></td>
-							<td class=" no-events" rowspan="1"></td>
-						</tr>
-						<tr>
-							<td>11:00</td>
-							<td class=" no-events" rowspan="1"></td>
-							<td class=" no-events" rowspan="1"></td>
-							<td class=" no-events" rowspan="1"></td>
-							<td class=" no-events" rowspan="1"></td>
-							<td class=" no-events" rowspan="1"></td>
-							<td class=" no-events" rowspan="1"></td>
-							<td class=" no-events" rowspan="1"></td>
-						</tr>
-						<tr>
-							<td>11:30</td>
-							<td class=" no-events" rowspan="1"></td>
-							<td class=" no-events" rowspan="1"></td>
-							<td class=" no-events" rowspan="1"></td>
-							<td class=" no-events" rowspan="1"></td>
-							<td class=" no-events" rowspan="1"></td>
-							<td class=" no-events" rowspan="1"></td>
-							<td class=" no-events" rowspan="1"></td>
-						</tr>
-						<tr>
-							<td>12:00</td>
-							<td class=" no-events" rowspan="1"></td>
-							<td class=" no-events" rowspan="1"></td>
-							<td class=" no-events" rowspan="1"></td>
-							<td class=" no-events" rowspan="1"></td>
-							<td class=" no-events" rowspan="1"></td>
-							<td class=" no-events" rowspan="1"></td>
-							<td class=" no-events" rowspan="1"></td>
-						</tr>
-						<tr>
-							<td>12:30</td>
-							<td class=" no-events" rowspan="1"></td>
-							<td class=" no-events" rowspan="1"></td>
-							<td class=" no-events" rowspan="1"></td>
-							<td class=" no-events" rowspan="1"></td>
-							<td class=" no-events" rowspan="1"></td>
-							<td class=" no-events" rowspan="1"></td>
-							<td class=" no-events" rowspan="1"></td>
-						</tr>
-						<tr>
-							<td>13:00</td>
-							<td class=" no-events" rowspan="1"></td>
-							<td class=" no-events" rowspan="1"></td>
-							<td class=" no-events" rowspan="1"></td>
-							<td class=" no-events" rowspan="1"></td>
-							<td class=" no-events" rowspan="1"></td>
-							<td class=" no-events" rowspan="1"></td>
-							<td class=" no-events" rowspan="1"></td>
-						</tr>
-						<tr>
-							<td>13:30</td>
-							<td class=" no-events" rowspan="1"></td>
-							<td class=" no-events" rowspan="1"></td>
-							<td class=" no-events" rowspan="1"></td>
-							<td class=" no-events" rowspan="1"></td>
-							<td class=" no-events" rowspan="1"></td>
-							<td class=" no-events" rowspan="1"></td>
-							<td class=" no-events" rowspan="1"></td>
-						</tr>
-						<tr>
-							<td>14:00</td>
-							<td class=" no-events" rowspan="1"></td>
-							<td class=" no-events" rowspan="1"></td>
-							<td class=" no-events" rowspan="1"></td>
-							<td class=" no-events" rowspan="1"></td>
-							<td class=" no-events" rowspan="1"></td>
-							<td class=" no-events" rowspan="1"></td>
-							<td class=" no-events" rowspan="1"></td>
-						</tr>
-						<tr>
-							<td>14:30</td>
-							<td class=" no-events" rowspan="1"></td>
-							<td class=" no-events" rowspan="1"></td>
-							<td class=" no-events" rowspan="1"></td>
-							<td class=" no-events" rowspan="1"></td>
-							<td class=" no-events" rowspan="1"></td>
-							<td class=" no-events" rowspan="1"></td>
-							<td class=" no-events" rowspan="1"></td>
-						</tr>
-						<tr>
-							<td>15:00</td>
-							<td class=" no-events" rowspan="1"></td>
-							<td class=" no-events" rowspan="1"></td>
-							<td class=" no-events" rowspan="1"></td>
-							<td class=" no-events" rowspan="1"></td>
-							<td class=" no-events" rowspan="1"></td>
-							<td class=" no-events" rowspan="1"></td>
-							<td class=" no-events" rowspan="1"></td>
-						</tr>
-						<tr>
-							<td>15:30</td>
-							<td class=" no-events" rowspan="1"></td>
-							<td class=" no-events" rowspan="1"></td>
-							<td class=" no-events" rowspan="1"></td>
-							<td class=" no-events" rowspan="1"></td>
-							<td class=" no-events" rowspan="1"></td>
-							<td class=" no-events" rowspan="1"></td>
-							<td class=" no-events" rowspan="1"></td>
-
-						</tr>
-						<tr>
-							<td>16:00</td>
-							<td class=" no-events" rowspan="1"></td>
-							<td class=" no-events" rowspan="1"></td>
-							<td class=" no-events" rowspan="1"></td>
-							<td class=" no-events" rowspan="1"></td>
-							<td class=" no-events" rowspan="1"></td>
-							<td class=" no-events" rowspan="1"></td>
-							<td class=" no-events" rowspan="1"></td>
-							
-
-						</tr>
-						<tr>
-							<td>16:30</td>
-							<td class=" no-events" rowspan="1"></td>
-							<td class=" no-events" rowspan="1"></td>
-							<td class=" no-events" rowspan="1"></td>
-							<td class=" no-events" rowspan="1"></td>
-							<td class=" no-events" rowspan="1"></td>
-							<td class=" no-events" rowspan="1"></td>
-							<td class=" no-events" rowspan="1"></td>
-						</tr>
-						<tr>
-							<td>17:00</td>
-							<td class=" no-events" rowspan="1"></td>
-							<td class=" no-events" rowspan="1"></td>
-							<td class=" no-events" rowspan="1"></td>
-							<td class=" no-events" rowspan="1"></td>
-							<td class=" no-events" rowspan="1"></td>
-							<td class=" no-events" rowspan="1"></td>
-							<td class=" no-events" rowspan="1"></td>
-						</tr>
-						<tr>
-							<td>17:30</td>
-							<td class=" no-events" rowspan="1"></td>
-							<td class=" no-events" rowspan="1"></td>
-							<td class=" no-events" rowspan="1"></td>
-							<td class=" no-events" rowspan="1"></td>
-							<td class=" no-events" rowspan="1"></td>
-							<td class=" no-events" rowspan="1"></td>
-							<td class=" no-events" rowspan="1"></td>
-						</tr>
-						<tr>
-							<td>18:00</td>
-							<%
-								ArrayList<String> attributes = new ArrayList<String>();
-								for (Event e : CalendarEvents) {
-									if (e.getStartTime().equals("18:00")) {
-										if (thisWeek.contains(e.getDate())) {
-											attributes.add(thisWeek.indexOf(e.getDate()) + "");
-											attributes.add(e.getTitle());
-											attributes.add(e.getDifference() + "");
-											break;
-										}
-									}
+									time = j + ":00";
 								}
-								
-								if (attributes.size() == 0) {
-									for (int i = 0; i < 7; i++) {
-										%>
-										<td class=" no-events" rowspan="1"></td>	
-								 <% }
-								} else {
-									for (int i = 0; i < 7; i++) {
-										if (Integer.parseInt(attributes.get(0)) == i) { 
-											pageContext.setAttribute("title1", attributes.get(1));
-											pageContext.setAttribute("rowSpan1", Integer.parseInt(attributes.get(2)));
-										%>
-											<td class=" has-events" rowspan="${rowSpan1}">
-												<div class="row-fluid lecture" style="width: 99%; height: 100%;">
-													<span class="title">${title1}</span>
-												</div>
-											</td>
-									<%	
-										} else {
-									%>
-										<td class=" no-events" rowspan="1"></td>			
-									<%
-										}
+								pageContext.setAttribute("currentTime", time);
+								%>
+								<tr><td>${currentTime}</td>
+								<%
+									for (int i = increment; i < (increment+7); i++) {
+										if (!calendar.get(i).getTitle().equals("")) {
+											if (displayTitle.get(i)) {
+												pageContext.setAttribute("title", calendar.get(i).getTitle());
+												pageContext.setAttribute("color", calendar.get(i).getColor());
+												%>
+												<td class="has-events" rowspan="1" style="background-color:${color}">
+													<div class="row-fluid lecture" style="width: 99%; height: 100%;">
+														<span class="title">${title}</span>
+													</div>
+												</td>
+												<% 
+											} else {
+												pageContext.setAttribute("color", calendar.get(i).getColor()); %>
+												<td class=" has-events" rowspan="1" style="background-color:${color}">
+													<div class="row-fluid lecture" style="width: 99%; height: 100%;"></div>
+												</td>
+										<% 	}
+										} else { %>
+											<td class=" no-events" rowspan="1"></td>
+									<% 	}
 									}
-								}	
+								increment += 7; %>
+								</tr>
+							<% }
 							%>
-						</tr>
-						<tr>
-							<td>18:30</td>
-							<td class=" no-events" rowspan="1"></td>
-							<td class=" no-events" rowspan="1"></td>
-							<td class=" no-events" rowspan="1"></td>
-							<td class=" no-events" rowspan="1"></td>
-							<td class=" no-events" rowspan="1"></td>
-							<td class=" no-events" rowspan="1"></td>
-							<td class=" no-events" rowspan="1"></td>
-						</tr>
-						<tr>
-							<td>19:00</td>
-							<td class=" no-events" rowspan="1"></td>
-							<td class=" no-events" rowspan="1"></td>
-							<td class=" no-events" rowspan="1"></td>
-							<td class=" no-events" rowspan="1"></td>
-							<td class=" no-events" rowspan="1"></td>
-							<td class=" no-events" rowspan="1"></td>
-							<td class=" no-events" rowspan="1"></td>
-						</tr>
-						<tr>
-							<td>19:30</td>
-							<td class=" no-events" rowspan="1"></td>
-							<td class=" no-events" rowspan="1"></td>
-							<td class=" no-events" rowspan="1"></td>
-							<td class=" no-events" rowspan="1"></td>
-							<td class=" no-events" rowspan="1"></td>
-							<td class=" no-events" rowspan="1"></td>
-							<td class=" no-events" rowspan="1"></td>
-						</tr>
 					</tbody>
 				</table>
 			</div>

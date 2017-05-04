@@ -13,8 +13,10 @@ public class Event implements Comparable<Event>{
 	@Id Long id;
 	String title;
 	String date, startTime, endTime;
+	String color;
 	
 	public Event(){
+		this.title = "";
 	}
 	
 	public Event(String title, String date, String start, String end) {
@@ -44,6 +46,10 @@ public class Event implements Comparable<Event>{
 		return startTime;
 	}
 	
+	public int getIntStart() {
+		return Integer.parseInt(startTime.substring(0, 2));
+	}
+	
 	public String getEndTime(){
 		return endTime;
 	}
@@ -53,15 +59,7 @@ public class Event implements Comparable<Event>{
 		String[] end = endTime.split(":");
 		int startHour = Integer.parseInt(start[0]);
 		int endHour = Integer.parseInt(end[0]);
-		int startMin = Integer.parseInt(start[1].substring(0,2));
-		int endMin = Integer.parseInt(end[1].substring(0, 2));
-		int hoursDiff = endHour-startHour;
-		int numRows = hoursDiff*2;
-		if(endMin==30)
-			numRows++;
-		if(startMin==30)
-			numRows--;
-		return numRows;
+		return endHour-startHour;
 	}
 	
 	public int getDay(){
@@ -75,5 +73,13 @@ public class Event implements Comparable<Event>{
 		else{
 			return this.getDate().compareTo(other.getDate());
 		}
+	}
+	
+	public String getColor() {
+		return this.color;
+	}
+	
+	public void setColor(String color) {
+		this.color = color;
 	}
 }
