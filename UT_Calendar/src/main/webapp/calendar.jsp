@@ -133,11 +133,6 @@ table.table-borderless>thead>tr>th, table.table-borderless>tbody>tr>td {
 	pageContext.setAttribute("toDoList", u.toDoList);
 	pageContext.setAttribute("schedules", u.schedules);
 	pageContext.setAttribute("idString", idString);
-	
-	int [] numEmptyCells = new int[24];
-	for(int i = 0; i < numEmptyCells.length; i++){
-		numEmptyCells[i] = 7;
-	}
 %>
 <body>
 	<nav class="navbar navbar-inverse">
@@ -229,7 +224,6 @@ table.table-borderless>thead>tr>th, table.table-borderless>tbody>tr>td {
 					Long id2 = EventList.get(j);
 					Event userEvent = ObjectifyService.ofy().load().type(Event.class).filter("id", id2).first().get();
 					CalendarEvents.add(userEvent);
-					
 				}
 			}
 			//CalendarEvents is an ArrayList of Event Objects that supposed to be in the calendar
@@ -272,7 +266,6 @@ table.table-borderless>thead>tr>th, table.table-borderless>tbody>tr>td {
 					</thead>
 					<tbody>
 						<tr>
-
 							<td>08:00</td>
 							<%
 								ArrayList<String> attributes1 = new ArrayList<String>();
@@ -284,31 +277,24 @@ table.table-borderless>thead>tr>th, table.table-borderless>tbody>tr>td {
 											attributes1.add(e.getTitle());
 											attributes1.add(e.getDifference() + "");
 											numEvents += 1;
-											
 										}
 									}
 								}
 							
 								if (attributes1.size() == 0) {
-									for (int i = 0; i < numEmptyCells[0]; i++) {
+									for (int i = 0; i < 7; i++) {
 										%>
 										<td class=" no-events" rowspan="1"></td>	
 								 <% }
 								} else {
-									int counter = 0;
-									for (int i = 0; i < 7; i++) { 
+									for (int i = 0; i < 7; i++) {
 										if ((numEvents != 0) && (Integer.parseInt(attributes1.get(0)) == i)) { 
 											pageContext.setAttribute("title", attributes1.get(1));
 											pageContext.setAttribute("rowSpan", attributes1.get(2));
 											numEvents -= 1;
-											for(int k = 0; k < Integer.parseInt(attributes1.get(2)); k++){
-												numEmptyCells[k] = numEmptyCells[k] -1;
-											}
 											attributes1.remove(2);
 											attributes1.remove(1);
 											attributes1.remove(0);
-											
-											
 										%>
 											<td class=" has-events" rowspan="${rowSpan}">
 												<div class="row-fluid lecture" style="width: 99%; height: 100%;">
@@ -316,179 +302,45 @@ table.table-borderless>thead>tr>th, table.table-borderless>tbody>tr>td {
 												</div>
 											</td>
 									<%	
-										} else if(counter<numEmptyCells[0]) {
+										} else {
 									%>
 										<td class=" no-events" rowspan="1"></td>			
 									<%
-										counter++;
 										}
 									}
 								}	
 							%>
-
 						</tr>
 						<tr>
 							<td>08:30</td>
-							<%
-								ArrayList<String> attributes2 = new ArrayList<String>();
-								int numEvents2 = 0;
-								for (Event e : CalendarEvents) {
-									if (e.getStartTime().equals("08:30")) {
-										if (thisWeek.contains(e.getDate())) {
-											attributes2.add(thisWeek.indexOf(e.getDate()) + "");
-											attributes2.add(e.getTitle());
-											attributes2.add(e.getDifference() + "");
-											numEvents2 += 1;
-											
-										}
-									}
-								}
-							
-								if (attributes2.size() == 0) {
-									for (int i = 0; i < numEmptyCells[1]; i++) {
-										%>
-										<td class=" no-events" rowspan="1"></td>	
-								 <% }
-								} else {
-									int counter = 0;
-									for (int i = 0; i < 7; i++) { 
-										if ((numEvents2 != 0) && (Integer.parseInt(attributes2.get(0)) == i)) { 
-											pageContext.setAttribute("title2", attributes2.get(1));
-											pageContext.setAttribute("rowSpan2", attributes2.get(2));
-											numEvents2 -= 1;
-											for(int k = 1; k < Integer.parseInt(attributes2.get(2)); k++){
-												numEmptyCells[k] = numEmptyCells[k] -1;
-											}
-											attributes2.remove(2);
-											attributes2.remove(1);
-											attributes2.remove(0);
-											
-											
-										%>
-											<td class=" has-events" rowspan="${rowSpan2}">
-												<div class="row-fluid lecture" style="width: 99%; height: 100%;">
-													<span class="title">${title2}</span>
-												</div>
-											</td>
-									<%	
-										} else if(counter<numEmptyCells[1]) {
-									%>
-										<td class=" no-events" rowspan="1"></td>			
-									<%
-										counter++;
-										}
-									}
-								}	
-							%>
+							<td class=" no-events" rowspan="1"></td>
+							<td class=" no-events" rowspan="1"></td>
+							<td class=" no-events" rowspan="1"></td>
+							<td class=" no-events" rowspan="1"></td>
+							<td class=" no-events" rowspan="1"></td>
+							<td class=" no-events" rowspan="1"></td>
+							<td class=" no-events" rowspan="1"></td>
 						</tr>
 						<tr>
 							<td>09:00</td>
-								<%
-								ArrayList<String> attributes3 = new ArrayList<String>();
-								int numEvents3 = 0;
-								for (Event e : CalendarEvents) {
-									if (e.getStartTime().equals("09:00")) {
-										if (thisWeek.contains(e.getDate())) {
-											attributes3.add(thisWeek.indexOf(e.getDate()) + "");
-											attributes3.add(e.getTitle());
-											attributes3.add(e.getDifference() + "");
-											numEvents3 += 1;
-											
-										}
-									}
-								}
-							
-								if (attributes3.size() == 0) {
-									for (int i = 0; i < numEmptyCells[2]; i++) {
-										%>
-										<td class=" no-events" rowspan="1"></td>	
-								 <% }
-								} else {
-									int counter = 0;
-									for (int i = 0; i < 7; i++) { 
-										if ((numEvents3 != 0) && (Integer.parseInt(attributes3.get(0)) == i)) { 
-											pageContext.setAttribute("title3", attributes3.get(1));
-											pageContext.setAttribute("rowSpan3", attributes3.get(2));
-											numEvents3 -= 1;
-											for(int k = 2; k < Integer.parseInt(attributes3.get(2)); k++){
-												numEmptyCells[k] = numEmptyCells[k] -1;
-											}
-											attributes3.remove(2);
-											attributes3.remove(1);
-											attributes3.remove(0);
-											
-											
-										%>
-											<td class=" has-events" rowspan="${rowSpan3}">
-												<div class="row-fluid lecture" style="width: 99%; height: 100%;">
-													<span class="title">${title3}</span>
-												</div>
-											</td>
-									<%	
-										} else if(counter<numEmptyCells[2]) {
-									%>
-										<td class=" no-events" rowspan="1"></td>			
-									<%
-										counter++;
-										}
-									}
-								}	
-							%>
+							<td class=" no-events" rowspan="1"></td>
+							<td class=" no-events" rowspan="1"></td>
+							<td class=" no-events" rowspan="1"></td>
+							<td class=" no-events" rowspan="1"></td>
+							<td class=" no-events" rowspan="1"></td>
+							<td class=" no-events" rowspan="1"></td>
+							<td class=" no-events" rowspan="1"></td>
 
 						</tr>
 						<tr>
 							<td>09:30</td>
-								<%
-								ArrayList<String> attributes4 = new ArrayList<String>();
-								int numEvents4 = 0;
-								for (Event e : CalendarEvents) {
-									if (e.getStartTime().equals("09:30")) {
-										if (thisWeek.contains(e.getDate())) {
-											attributes4.add(thisWeek.indexOf(e.getDate()) + "");
-											attributes4.add(e.getTitle());
-											attributes4.add(e.getDifference() + "");
-											numEvents4 += 1;
-											
-										}
-									}
-								}
-							
-								if (attributes4.size() == 0) {
-									for (int i = 0; i < numEmptyCells[3]; i++) {
-										%>
-										<td class=" no-events" rowspan="1"></td>	
-								 <% }
-								} else {
-									int counter = 0;
-									for (int i = 0; i < 7; i++) { 
-										if ((numEvents4 != 0) && (Integer.parseInt(attributes4.get(0)) == i)) { 
-											pageContext.setAttribute("title4", attributes4.get(1));
-											pageContext.setAttribute("rowSpan4", attributes4.get(2));
-											numEvents4 -= 1;
-											for(int k = 3; k < Integer.parseInt(attributes4.get(2)); k++){
-												numEmptyCells[k] = numEmptyCells[k] -1;
-											}
-											attributes4.remove(2);
-											attributes4.remove(1);
-											attributes4.remove(0);
-											
-											
-										%>
-											<td class=" has-events" rowspan="${rowSpan4}">
-												<div class="row-fluid lecture" style="width: 99%; height: 100%;">
-													<span class="title">${title4}</span>
-												</div>
-											</td>
-									<%	
-										} else if(counter<numEmptyCells[3]) {
-									%>
-										<td class=" no-events" rowspan="1"></td>			
-									<%
-										counter++;
-										}
-									}
-								}	
-							%>
+							<td class=" no-events" rowspan="1"></td>
+							<td class=" no-events" rowspan="1"></td>
+							<td class=" no-events" rowspan="1"></td>
+							<td class=" no-events" rowspan="1"></td>
+							<td class=" no-events" rowspan="1"></td>
+							<td class=" no-events" rowspan="1"></td>
+							<td class=" no-events" rowspan="1"></td>
 						</tr>
 						<tr>
 							<td>10:00</td>
